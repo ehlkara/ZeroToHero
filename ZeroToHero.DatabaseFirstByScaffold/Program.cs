@@ -1,13 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Microsoft.EntityFrameworkCore;
-using ZeroToHero.DatabaseFirst.DAL;
+using ZeroToHero.DatabaseFirstByScaffold.Models;
 
-DbContextInitializer.Build();
-
-using (var _context = new AppDbContext())
+using (var context = new ZeroToHeroDbContext())
 {
-    var products = await _context.Products.ToListAsync();
+    var products = await context.Products.ToListAsync();
 
     products.ForEach(p =>
     {
