@@ -1,2 +1,2 @@
 # ZeroToHero
-Ef core 6 zero to hero
+Ef core 6 zero to hero...
