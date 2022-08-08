@@ -1,2 +1,2 @@
-# ZeroToHero
+# ZeroToHero API
 Ef core 6 zero to hero...
