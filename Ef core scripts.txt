@@ -1,0 +1,9 @@
+
+DatabaseFirst script => Scaffold-DbContext "LocalDb ConnectionStrings" Microsoft.EntityFrameworkCore.SqlServer -OutputDir FolderName
+
+CodeFirst scripts:
+
+1- Add-Migration migrationName
+2- Update-Database || Update-Database migrationName
+3- Remove-Migration
+4- Script-Migration
