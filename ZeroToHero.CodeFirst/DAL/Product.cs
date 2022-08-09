@@ -1,9 +1,17 @@
-﻿namespace ZeroToHero.CodeFirst.DAL
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ZeroToHero.CodeFirst.DAL
 {
+    [Table("ProductTb", Schema = "products")]
     public class Product
     {
-        public int Id { get; set; }
+        //[Column(Order = 1)]
+        //[Key]
+        public int Product_Id { get; set; }
+        //[Column("name2", Order =  2)]
         public string Name { get; set; }
+        //[Column("price2", Order = 3, TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public int? Stock { get; set; }
         public DateTime? CreatedDate { get; set; }

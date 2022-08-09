@@ -13,19 +13,29 @@ namespace ZeroToHero.CodeFirst.DAL
             optionsBuilder.UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
         }
 
-        public override int SaveChanges()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ChangeTracker.Entries().ToList().ForEach(e =>
-            {
-                if (e.Entity is Product p)
-                {
-                    if (e.State == EntityState.Added)
-                    {
-                        p.CreatedDate = DateTime.Now;
-                    }
-                }
-            });
-            return base.SaveChanges();
+            //second way change for table name
+            //modelBuilder.Entity<Product>().ToTable("ProductTBB", "productstbb");
+            //second way selected primary key
+            modelBuilder.Entity<Product>().HasKey(x => x.Product_Id);
+
+            base.OnModelCreating(modelBuilder);
         }
+
+        //public override int SaveChanges()
+        //{
+        //    ChangeTracker.Entries().ToList().ForEach(e =>
+        //    {
+        //        if (e.Entity is Product p)
+        //        {
+        //            if (e.State == EntityState.Added)
+        //            {
+        //                p.CreatedDate = DateTime.Now;
+        //            }
+        //        }
+        //    });
+        //    return base.SaveChanges();
+        //}
     }
 }

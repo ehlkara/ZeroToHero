@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZeroToHero.CodeFirst.DAL;
 
@@ -11,9 +12,10 @@ using ZeroToHero.CodeFirst.DAL;
 namespace ZeroToHero.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220809113032_changeOrderOrColumnName_ForProduct")]
+    partial class changeOrderOrColumnName_ForProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +26,12 @@ namespace ZeroToHero.CodeFirst.Migrations
 
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Product", b =>
                 {
-                    b.Property<int>("Product_Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnOrder(1);
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Barcode")
                         .HasColumnType("int");
@@ -38,15 +41,19 @@ namespace ZeroToHero.CodeFirst.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name2")
+                        .HasColumnOrder(2);
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("price2")
+                        .HasColumnOrder(3);
 
                     b.Property<int?>("Stock")
                         .HasColumnType("int");
 
-                    b.HasKey("Product_Id");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductTb", "products");
                 });

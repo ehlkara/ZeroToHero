@@ -70,13 +70,13 @@ using(var _context = new AppDbContext())
     //_context.SaveChanges();
 
     // Linq queries
-    var products = _context.Products.First(x => x.Id == 100); // Throw exception
-    var products2 = _context.Products.FirstOrDefault(x => x.Id == 100); // return null
-    var products3 = await _context.Products.SingleAsync(x => x.Id == 100); // Throw exception
-    var products4 = await _context.Products.Where(x => x.Id > 10 && x.Name == "Pen 101" || x.Stock > 300).ToListAsync();
-    var products5 = await _context.Products.FirstAsync(x => x.Id == 8);
-    var products6 = await _context.Products.SingleAsync(x => x.Id == 8);
-    var products7 = await _context.Products.FindAsync(8);
-    var products8 = await _context.Products.AsNoTracking().FirstAsync(x => x.Id == 8);
-    Console.WriteLine(_context.Entry(products8).State);
+    //var products = _context.Products.First(x => x.Id == 100); // Throw exception
+    //var products2 = _context.Products.FirstOrDefault(x => x.Id == 100); // return null
+    //var products3 = await _context.Products.SingleAsync(x => x.Id == 100); // Throw exception
+    //var products4 = await _context.Products.Where(x => x.Id > 10 && x.Name == "Pen 101" || x.Stock > 300).ToListAsync();
+    //var products5 = await _context.Products.FirstAsync(x => x.Id == 8);
+    //var products6 = await _context.Products.SingleAsync(x => x.Id == 8);
+    //var products7 = await _context.Products.FindAsync(8);
+    //var products8 = await _context.Products.AsNoTracking().FirstAsync(x => x.Id == 8);
+    //Console.WriteLine(_context.Entry(products8).State);
 }

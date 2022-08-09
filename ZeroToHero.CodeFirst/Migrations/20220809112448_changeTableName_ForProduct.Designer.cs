@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZeroToHero.CodeFirst.DAL;
 
@@ -11,9 +12,10 @@ using ZeroToHero.CodeFirst.DAL;
 namespace ZeroToHero.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220809112448_changeTableName_ForProduct")]
+    partial class changeTableName_ForProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +26,11 @@ namespace ZeroToHero.CodeFirst.Migrations
 
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Product", b =>
                 {
-                    b.Property<int>("Product_Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Product_Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("Barcode")
                         .HasColumnType("int");
@@ -46,7 +48,7 @@ namespace ZeroToHero.CodeFirst.Migrations
                     b.Property<int?>("Stock")
                         .HasColumnType("int");
 
-                    b.HasKey("Product_Id");
+                    b.HasKey("Id");
 
                     b.ToTable("ProductTb", "products");
                 });
