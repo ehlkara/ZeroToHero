@@ -7,20 +7,30 @@ using ZeroToHero.CodeFirst.DAL;
 Initializer.Build();
 using(var _context = new AppDbContext())
 {
-    //var products = await _context.Products.ToListAsync();
+    //var products = await _context.Products.AsNoTracking().ToListAsync();
 
     //products.ForEach(p =>
     //{
-    //    var state = _context.Entry(p).State;
+    //    //p.Stock += 100;
+    //    //var state = _context.Entry(p).State;
 
-    //    Console.WriteLine($"{p.Id}: {p.Name} - {p.Price} - {p.Stock} state: {state}");
+    //    Console.WriteLine($"{p.Id}: {p.Name} - {p.Price} - {p.Stock}");
     //});
 
+    _context.Products.Add(new() { Name = "Pen 101", Price = 200, Stock = 100, Barcode = 123 });
+    _context.Products.Add(new() { Name = "Pen 102", Price = 300, Stock = 200, Barcode = 345 });
+    _context.Products.Add(new() { Name = "Pen 103", Price = 400, Stock = 300, Barcode = 789 });
+
+    Console.WriteLine($"Context Id: {_context.ContextId}");
+
+    //_context.SaveChanges();
+
+    // States Notion
     //var newProduct = new Product { Name = "Pen 300", Price = 200, Stock = 100, Barcode = 333 };
 
     //var product = await _context.Products.FirstAsync();
 
-    _context.Update(new Product() { Id = 5, Name = "Notebook", Price = 500, Stock = 500, Barcode = 500 });
+    //_context.Update(new Product() { Id = 5, Name = "Notebook", Price = 500, Stock = 500, Barcode = 500 });
 
     //Console.WriteLine($"First State: {_context.Entry(product).State}");
 
@@ -39,9 +49,7 @@ using(var _context = new AppDbContext())
 
     //await _context.AddAsync(newProduct);
 
-
-
-    await _context.SaveChangesAsync();
+    //await _context.SaveChangesAsync();
 
     //Console.WriteLine($"State after save changes: {_context.Entry(product).State}");
 }
