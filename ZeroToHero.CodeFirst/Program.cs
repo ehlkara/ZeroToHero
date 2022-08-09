@@ -17,11 +17,11 @@ using(var _context = new AppDbContext())
     //    Console.WriteLine($"{p.Id}: {p.Name} - {p.Price} - {p.Stock}");
     //});
 
-    _context.Products.Add(new() { Name = "Pen 101", Price = 200, Stock = 100, Barcode = 123 });
-    _context.Products.Add(new() { Name = "Pen 102", Price = 300, Stock = 200, Barcode = 345 });
-    _context.Products.Add(new() { Name = "Pen 103", Price = 400, Stock = 300, Barcode = 789 });
+    //_context.Products.Add(new() { Name = "Pen 101", Price = 200, Stock = 100, Barcode = 123 });
+    //_context.Products.Add(new() { Name = "Pen 102", Price = 300, Stock = 200, Barcode = 345 });
+    //_context.Products.Add(new() { Name = "Pen 103", Price = 400, Stock = 300, Barcode = 789 });
 
-    Console.WriteLine($"Context Id: {_context.ContextId}");
+    //Console.WriteLine($"Context Id: {_context.ContextId}");
 
     //_context.SaveChanges();
 
@@ -52,4 +52,21 @@ using(var _context = new AppDbContext())
     //await _context.SaveChangesAsync();
 
     //Console.WriteLine($"State after save changes: {_context.Entry(product).State}");
+
+    //Update method clue
+
+    var products = _context.Products.ToList();
+
+    products.ForEach(p =>
+    {
+        p.Stock += 100;
+    });
+    _context.ChangeTracker.Entries().ToList().ForEach(e =>
+    {
+        if (e.Entity is Product p)
+        {
+            Console.WriteLine(e.State);
+        }
+    });
+    _context.SaveChanges();
 }
