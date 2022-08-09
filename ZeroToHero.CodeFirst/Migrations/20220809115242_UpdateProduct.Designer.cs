@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZeroToHero.CodeFirst.DAL;
 
@@ -11,9 +12,10 @@ using ZeroToHero.CodeFirst.DAL;
 namespace ZeroToHero.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220809115242_UpdateProduct")]
+    partial class UpdateProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,10 +39,8 @@ namespace ZeroToHero.CodeFirst.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nchar(100)")
-                        .IsFixedLength();
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");

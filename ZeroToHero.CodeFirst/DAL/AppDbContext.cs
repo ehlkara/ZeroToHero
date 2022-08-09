@@ -17,8 +17,15 @@ namespace ZeroToHero.CodeFirst.DAL
         {
             //second way change for table name
             //modelBuilder.Entity<Product>().ToTable("ProductTBB", "productstbb");
+
             //second way selected primary key
             modelBuilder.Entity<Product>().HasKey(x => x.Product_Id);
+
+            //second way for required
+            //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired();
+
+            //second way for string maxlength
+            modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
 
             base.OnModelCreating(modelBuilder);
         }
