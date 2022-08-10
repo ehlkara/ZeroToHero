@@ -32,6 +32,9 @@ namespace ZeroToHero.CodeFirst.DAL
             // Fluent way
             //modelBuilder.Entity<Category>().HasMany(x=>x.Products).WithOne(x => x.Category).HasForeignKey(x=>x.Category_Id);
 
+            // Fluent way for one to one relationships
+            modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.ProductRef_Id);
+
             base.OnModelCreating(modelBuilder);
         }
 
