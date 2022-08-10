@@ -33,5 +33,6 @@ namespace ZeroToHero.CodeFirst.DAL
         //public int CategoryId { get; set; }
         // Domain Driven Design best practice
         public Category? Category { get; set; }
+        public ProductFeature ProductFeature { get; set; }
     }
 }
