@@ -79,4 +79,9 @@ using(var _context = new AppDbContext())
     //var products7 = await _context.Products.FindAsync(8);
     //var products8 = await _context.Products.AsNoTracking().FirstAsync(x => x.Id == 8);
     //Console.WriteLine(_context.Entry(products8).State);
+
+    //--------------------------------------------------------------------
+    // Domain Driven Design best practice
+    //var category = _context.Categories.First();
+    //category.Products.Add(new Product() { });
 }

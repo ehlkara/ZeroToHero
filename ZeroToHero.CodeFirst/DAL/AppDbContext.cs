@@ -6,6 +6,7 @@ namespace ZeroToHero.CodeFirst.DAL
     public class AppDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -19,13 +20,17 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().ToTable("ProductTBB", "productstbb");
 
             //second way selected primary key
-            modelBuilder.Entity<Product>().HasKey(x => x.Product_Id);
+            //modelBuilder.Entity<Product>().HasKey(x => x.Product_Id);
 
             //second way for required
             //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired();
 
             //second way for string maxlength
-            modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
+            //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
+
+            //start with has everytime
+            // Fluent way
+            //modelBuilder.Entity<Category>().HasMany(x=>x.Products).WithOne(x => x.Category).HasForeignKey(x=>x.Category_Id);
 
             base.OnModelCreating(modelBuilder);
         }
