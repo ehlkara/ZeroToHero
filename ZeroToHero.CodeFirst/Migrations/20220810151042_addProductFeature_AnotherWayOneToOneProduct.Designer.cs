@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZeroToHero.CodeFirst.DAL;
 
@@ -11,9 +12,10 @@ using ZeroToHero.CodeFirst.DAL;
 namespace ZeroToHero.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220810151042_addProductFeature_AnotherWayOneToOneProduct")]
+    partial class addProductFeature_AnotherWayOneToOneProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,7 +78,10 @@ namespace ZeroToHero.CodeFirst.Migrations
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.ProductFeature", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -85,10 +90,16 @@ namespace ZeroToHero.CodeFirst.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Width")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
 
                     b.ToTable("ProductFeature");
                 });
@@ -108,7 +119,7 @@ namespace ZeroToHero.CodeFirst.Migrations
                 {
                     b.HasOne("ZeroToHero.CodeFirst.DAL.Product", "Product")
                         .WithOne("ProductFeature")
-                        .HasForeignKey("ZeroToHero.CodeFirst.DAL.ProductFeature", "Id")
+                        .HasForeignKey("ZeroToHero.CodeFirst.DAL.ProductFeature", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
