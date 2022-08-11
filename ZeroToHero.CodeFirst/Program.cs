@@ -168,4 +168,25 @@ using (var _context = new AppDbContext())
     //    new() { Name = "Hasan 100", Age = 20 }, new() { Name = "Hasan 200", Age = 25 } });
 
     //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // Delete Behaviors => Cascade, Restrict, SetNull, NoAction
+
+    //var category = new Category()
+    //{
+    //    Name = "Pens",
+    //    Products = new List<Product>()
+    //{
+    //    new() {Name = "Pen 1", Price = 100, Stock = 100, CreatedDate = DateTime.Now, Barcode = 123},
+    //    new() {Name = "Pen 2", Price = 200, Stock = 100, CreatedDate = DateTime.Now, Barcode = 123},
+    //    new() {Name = "Pen 3", Price = 300, Stock = 100, CreatedDate = DateTime.Now, Barcode = 123}
+    //}
+    //};
+    //_context.Add(category);
+
+    // Cascade behaviors
+    var category = _context.Categories.First();
+    _context.Categories.Remove(category);
+
+    _context.SaveChanges();
 }

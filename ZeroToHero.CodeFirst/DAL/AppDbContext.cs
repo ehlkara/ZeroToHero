@@ -7,7 +7,7 @@ namespace ZeroToHero.CodeFirst.DAL
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<ProductFeature> ProductFeature { get; set; }
+        //public DbSet<ProductFeature> ProductFeature { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
 
@@ -36,20 +36,24 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Category>().HasMany(x=>x.Products).WithOne(x => x.Category).HasForeignKey(x=>x.Category_Id);
 
             // Fluent way for one to one relationships
-            modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.ProductRef_Id);
+            //modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.ProductRef_Id);
             // Another way
             //modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>
             //    (x => x.Id);
 
             // Fluent way for many to many
-            modelBuilder.Entity<Student>()
-                .HasMany(x => x.Teachers)
-                .WithMany(x => x.Students)
-                .UsingEntity<Dictionary<string, object>>(
-                "StudentTeacherManyToMany",
-                x => x.HasOne<Teacher>().WithMany().HasForeignKey("Teacher_Id").HasConstraintName("FK__TeacherId"),
-                x => x.HasOne<Student>().WithMany().HasForeignKey("Student_Id").HasConstraintName("FK__StudentId")
-                );
+            //modelBuilder.Entity<Student>()
+            //    .HasMany(x => x.Teachers)
+            //    .WithMany(x => x.Students)
+            //    .UsingEntity<Dictionary<string, object>>(
+            //    "StudentTeacherManyToMany",
+            //    x => x.HasOne<Teacher>().WithMany().HasForeignKey("Teacher_Id").HasConstraintName("FK__TeacherId"),
+            //    x => x.HasOne<Student>().WithMany().HasForeignKey("Student_Id").HasConstraintName("FK__StudentId")
+            //    );
+
+            // Delete Behaviors Cascade
+            modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category)
+                .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -9,7 +9,7 @@ namespace ZeroToHero.CodeFirst.DAL
         public int Width { get; set; }
         public int Height { get; set; }
         public string Color { get; set; }
-        public int ProductRef_Id { get; set; }
+        //public int ProductRef_Id { get; set; }
         //[ForeignKey("ProductRef_Id")]
         public Product Product { get; set; }
     }

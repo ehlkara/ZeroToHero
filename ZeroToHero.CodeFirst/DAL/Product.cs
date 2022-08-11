@@ -30,9 +30,9 @@ namespace ZeroToHero.CodeFirst.DAL
         //Shadow property
 
         //Another way
-        //public int CategoryId { get; set; }
+        public int CategoryId { get; set; }
         // Domain Driven Design best practice
         public Category Category { get; set; }
-        public ProductFeature ProductFeature { get; set; }
+        //public ProductFeature ProductFeature { get; set; }
     }
 }
