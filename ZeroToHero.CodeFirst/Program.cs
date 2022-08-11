@@ -198,8 +198,14 @@ using (var _context = new AppDbContext())
     //_context.Categories.Remove(category);
 
     // SetNull behaviours
-    var category = _context.Categories.First();
-    _context.Categories.Remove(category);
+    //var category = _context.Categories.First();
+    //_context.Categories.Remove(category);
 
+    //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // DatabaseGenerated attribute
+
+    _context.Products.Add(new() { Name = "Pen 1", Price = 100, Stock = 200, Barcode = 123, LastAccessDate = DateTime.Now, Kdv = 18 });
     _context.SaveChanges();
 }
