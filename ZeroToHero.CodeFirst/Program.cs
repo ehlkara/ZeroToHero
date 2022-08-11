@@ -5,7 +5,7 @@ using ZeroToHero.CodeFirst;
 using ZeroToHero.CodeFirst.DAL;
 
 Initializer.Build();
-using(var _context = new AppDbContext())
+using (var _context = new AppDbContext())
 {
     //var products = await _context.Products.AsNoTracking().ToListAsync();
 
@@ -111,7 +111,7 @@ using(var _context = new AppDbContext())
     // ProductFeature => childed
 
     //var category = new Category() { Name = "Rubbers" };
-    var category = _context.Categories.First(x => x.Name == "Rubbers");
+    //var category = _context.Categories.First(x => x.Name == "Rubbers");
 
     //var product = new Product
     //{
@@ -125,19 +125,47 @@ using(var _context = new AppDbContext())
     //};
 
     // Another way
-    var product = new Product
-    {
-        Name = "Rubber 5",
-        Price = 200,
-        Stock = 200,
-        CreatedDate = DateTime.Now,
-        Barcode = 123,
-        Category = category
-    };
+    //var product = new Product
+    //{
+    //    Name = "Rubber 5",
+    //    Price = 200,
+    //    Stock = 200,
+    //    CreatedDate = DateTime.Now,
+    //    Barcode = 123,
+    //    Category = category
+    //};
 
-    ProductFeature productFeature = new ProductFeature() { Color = "Blue", Height = 100, Width = 200, Product = product };
+    //ProductFeature productFeature = new ProductFeature() { Color = "Blue", Height = 100, Width = 200, Product = product };
 
     //_context.Products.Add(product);
-    _context.ProductFeature.Add(productFeature);
-    _context.SaveChanges();
+    //_context.ProductFeature.Add(productFeature);
+    //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // Data Add(Many To Many)
+    //var student = new Student() { Name = "Ahmet", Age = 23, };
+    //student.Teachers.Add(new() { Name = "Ahmet Teacher"});
+    //student.Teachers.Add(new() { Name = "Mehmet Teacher" });
+
+    //_context.Add(student);
+
+    // Second way
+    //var teacher = new Teacher()
+    //{
+    //    Name = "Hasan Teacher",
+    //    Students = new() {
+    //new Student() {Name = "Hasan1", Age = 22},
+    //new Student() {Name = "Hasan2", Age = 23}
+    //}
+    //};
+
+    //_context.Add(teacher);
+
+    //data add with existing teacher
+    //var teacher = _context.Teachers.First(x => x.Name == "Hasan Teacher");
+
+    //teacher.Students.AddRange(new List<Student> {
+    //    new() { Name = "Hasan 100", Age = 20 }, new() { Name = "Hasan 200", Age = 25 } });
+
+    //_context.SaveChanges();
 }
