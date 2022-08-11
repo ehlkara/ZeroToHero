@@ -31,7 +31,7 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().Property(x => x.Name).IsRequired().HasMaxLength(100).IsFixedLength();
 
             //start with has everytime
-            // Fluent way
+            // Fluent way one to many
             //modelBuilder.Entity<Category>().HasMany(x=>x.Products).WithOne(x => x.Category).HasForeignKey(x=>x.Category_Id);
 
             // Fluent way for one to one relationships
@@ -39,6 +39,16 @@ namespace ZeroToHero.CodeFirst.DAL
             // Another way
             //modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>
             //    (x => x.Id);
+
+            // Fluent way for many to many
+            modelBuilder.Entity<Student>()
+                .HasMany(x => x.Teachers)
+                .WithMany(x => x.Students)
+                .UsingEntity<Dictionary<string, object>>(
+                "StudentTeacherManyToMany",
+                x => x.HasOne<Teacher>().WithMany().HasForeignKey("Teacher_Id").HasConstraintName("FK__TeacherId"),
+                x => x.HasOne<Student>().WithMany().HasForeignKey("Student_Id").HasConstraintName("FK__StudentId")
+                );
 
             base.OnModelCreating(modelBuilder);
         }
