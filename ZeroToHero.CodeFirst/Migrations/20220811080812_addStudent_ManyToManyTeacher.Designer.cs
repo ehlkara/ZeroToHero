@@ -12,8 +12,8 @@ using ZeroToHero.CodeFirst.DAL;
 namespace ZeroToHero.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220810151614_addProductFeature_WayOneToOneWayProduct")]
-    partial class addProductFeature_WayOneToOneWayProduct
+    [Migration("20220811080812_addStudent_ManyToManyTeacher")]
+    partial class addStudent_ManyToManyTeacher
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,21 @@ namespace ZeroToHero.CodeFirst.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("StudentTeacher", b =>
+                {
+                    b.Property<int>("StudentsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeachersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StudentsId", "TeachersId");
+
+                    b.HasIndex("TeachersId");
+
+                    b.ToTable("StudentTeacher");
+                });
 
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Category", b =>
                 {
@@ -78,7 +93,10 @@ namespace ZeroToHero.CodeFirst.Migrations
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.ProductFeature", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -87,12 +105,70 @@ namespace ZeroToHero.CodeFirst.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("int");
 
+                    b.Property<int>("ProductRef_Id")
+                        .HasColumnType("int");
+
                     b.Property<int>("Width")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductRef_Id")
+                        .IsUnique();
+
                     b.ToTable("ProductFeature");
+                });
+
+            modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Student", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Teacher", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Teachers");
+                });
+
+            modelBuilder.Entity("StudentTeacher", b =>
+                {
+                    b.HasOne("ZeroToHero.CodeFirst.DAL.Student", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZeroToHero.CodeFirst.DAL.Teacher", null)
+                        .WithMany()
+                        .HasForeignKey("TeachersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Product", b =>
@@ -110,7 +186,7 @@ namespace ZeroToHero.CodeFirst.Migrations
                 {
                     b.HasOne("ZeroToHero.CodeFirst.DAL.Product", "Product")
                         .WithOne("ProductFeature")
-                        .HasForeignKey("ZeroToHero.CodeFirst.DAL.ProductFeature", "Id")
+                        .HasForeignKey("ZeroToHero.CodeFirst.DAL.ProductFeature", "ProductRef_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
