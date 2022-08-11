@@ -185,6 +185,19 @@ using (var _context = new AppDbContext())
     //_context.Add(category);
 
     // Cascade behaviors
+    //var category = _context.Categories.First();
+    //_context.Categories.Remove(category);
+
+    // Restrict behaviors
+    //var category = _context.Categories.First();
+
+    //var products = _context.Products.Where(x=>x.CategoryId == category.Id).ToList();
+
+    //_context.RemoveRange(products);
+
+    //_context.Categories.Remove(category);
+
+    // SetNull behaviours
     var category = _context.Categories.First();
     _context.Categories.Remove(category);
 

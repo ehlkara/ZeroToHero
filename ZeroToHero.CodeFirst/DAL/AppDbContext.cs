@@ -7,7 +7,7 @@ namespace ZeroToHero.CodeFirst.DAL
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        //public DbSet<ProductFeature> ProductFeature { get; set; }
+        public DbSet<ProductFeature> ProductFeature { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
 
@@ -52,8 +52,16 @@ namespace ZeroToHero.CodeFirst.DAL
             //    );
 
             // Delete Behaviors Cascade
+            //modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category)
+            //    .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
+
+            // Delete Behaviors Restrict
+            //modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category)
+            //    .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Restrict);
+
+            // Delete Behaviors SetNull
             modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category)
-                .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.SetNull);
 
             base.OnModelCreating(modelBuilder);
         }
