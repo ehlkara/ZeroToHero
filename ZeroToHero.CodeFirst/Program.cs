@@ -107,4 +107,37 @@ using(var _context = new AppDbContext())
 
     //--------------------------------------------------------
     // Data Add(One To One)
+    // Product => Parent
+    // ProductFeature => childed
+
+    //var category = new Category() { Name = "Rubbers" };
+    var category = _context.Categories.First(x => x.Name == "Rubbers");
+
+    //var product = new Product
+    //{
+    //    Name = "Rubber 5",
+    //    Price = 200,
+    //    Stock = 200,
+    //    CreatedDate = DateTime.Now,
+    //    Barcode = 123,
+    //    Category = category,
+    //    ProductFeature = new ProductFeature() { Color = "Red", Height = 100, Width = 200 }
+    //};
+
+    // Another way
+    var product = new Product
+    {
+        Name = "Rubber 5",
+        Price = 200,
+        Stock = 200,
+        CreatedDate = DateTime.Now,
+        Barcode = 123,
+        Category = category
+    };
+
+    ProductFeature productFeature = new ProductFeature() { Color = "Blue", Height = 100, Width = 200, Product = product };
+
+    //_context.Products.Add(product);
+    _context.ProductFeature.Add(productFeature);
+    _context.SaveChanges();
 }
