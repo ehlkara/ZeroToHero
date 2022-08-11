@@ -84,4 +84,27 @@ using(var _context = new AppDbContext())
     // Domain Driven Design best practice
     //var category = _context.Categories.First();
     //category.Products.Add(new Product() { });
+
+    //--------------------------------------------------------
+    // Data Add(One To Many)
+    //var category = new Category() { Name = "NoteBooks" };
+    //var category = _context.Categories.First(x => x.Name == "NoteBooks");
+
+    //First Way
+    //var product = new Product() { Name = "Pen 1", Price = 100, Stock = 200, CreatedDate = DateTime.Now, Barcode = 123, Category = category };
+
+    // Second Way
+    //category.Products.Add(new Product() { Name = "Notebook 1", Price = 100, Stock = 200, CreatedDate = DateTime.Now, Barcode = 123 });
+    //category.Products.Add(new Product() { Name = "Notebook 2", Price = 100, Stock = 200, CreatedDate = DateTime.Now, Barcode = 123 });
+
+    // Third Way
+    //var product = new Product() { Name = "Notebook 3", Price = 100, Stock = 200, CreatedDate = DateTime.Now, Barcode = 123, Category = category };
+
+    //_context.Categories.Add(category); // Not need this code
+    //_context.Add(product);
+    //_context.Add(product);
+    //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // Data Add(One To One)
 }
