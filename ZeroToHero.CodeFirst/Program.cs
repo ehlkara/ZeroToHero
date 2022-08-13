@@ -259,21 +259,35 @@ using (var _context = new AppDbContext())
     //Console.WriteLine("Proccess finished");
 
     // Explicit Loading
-    var catagory = _context.Categories.First();
-    var product = _context.Products.First();
-    //
-    //
-    //
-    if (true)
-    {
-        _context.Entry(catagory).Collection(x => x.Products).Load();
-
-        _context.Entry(product).Reference(x => x.ProductFeature).Load();
-
-        catagory.Products.ForEach(x =>
-        {
-            Console.WriteLine(x.Name);
-        });
-    }
+    //var catagory = _context.Categories.First();
+    //var product = _context.Products.First();
     ////
+    ////
+    ////
+    //if (true)
+    //{
+    //    _context.Entry(catagory).Collection(x => x.Products).Load();
+
+    //    _context.Entry(product).Reference(x => x.ProductFeature).Load();
+
+    //    catagory.Products.ForEach(x =>
+    //    {
+    //        Console.WriteLine(x.Name);
+    //    });
+    //}
+    //////
+    ///
+
+    // Lazy Loading
+    var category = await _context.Categories.FirstAsync();
+
+    Console.WriteLine("Loaded category");
+
+    var products = category.Products;
+
+    // (N+1 Problem)
+    products.ForEach(x =>
+    {
+        var productFeature = x.ProductFeature;
+    });
 }
