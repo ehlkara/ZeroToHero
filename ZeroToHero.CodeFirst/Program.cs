@@ -206,6 +206,55 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // DatabaseGenerated attribute
 
-    _context.Products.Add(new() { Name = "Pen 1", Price = 100, Stock = 200, Barcode = 123, LastAccessDate = DateTime.Now, Kdv = 18 });
-    _context.SaveChanges();
+    //_context.Products.Add(new() { Name = "Pen 1", Price = 100, Stock = 200, Barcode = 123, LastAccessDate = DateTime.Now, Kdv = 18 });
+    //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // Data Add
+
+    //var category = new Category() { Name = "Pens" };
+
+    //category.Products.Add(new()
+    //{
+    //    Name = "Pen 1",
+    //    Price = 100,
+    //    Stock = 100,
+    //    Barcode = 123,
+    //    ProductFeature = new()
+    //    {
+    //        Color = "Red",
+    //        Height = 100,
+    //        Width = 200
+    //    }
+    //});
+    //category.Products.Add(new()
+    //{
+    //    Name = "Pen 2",
+    //    Price = 100,
+    //    Stock = 100,
+    //    Barcode = 123,
+    //    ProductFeature = new()
+    //    {
+    //        Color = "Blue",
+    //        Height = 100,
+    //        Width = 200
+    //    }
+    //});
+
+    //await _context.AddAsync(category);
+    //await _context.SaveChangesAsync();
+
+    // Eager Loading
+    var categoryWithProducts = _context.Categories.Include(x => x.Products).ThenInclude(x => x.ProductFeature).First();
+
+    categoryWithProducts.Products.ForEach(product =>
+    {
+        Console.WriteLine($"{categoryWithProducts.Name} {product.Name} {product.ProductFeature.Width}");
+    });
+
+    var productFeature = _context.ProductFeature.Include(x => x.Product).ThenInclude(x => x.Category).First();
+
+    var product = _context.Products.Include(x => x.ProductFeature).Include(x => x.Category).First();
+
+    Console.WriteLine("Proccess finished");
 }

@@ -6,8 +6,8 @@ namespace ZeroToHero.CodeFirst.DAL
     public class AppDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
-        //public DbSet<Category> Categories { get; set; }
-        //public DbSet<ProductFeature> ProductFeature { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductFeature> ProductFeature { get; set; }
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
 
@@ -63,11 +63,12 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Category>().HasMany(x => x.Products).WithOne(x => x.Category)
             //    .HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Product>().Property(x => x.PriceKdv).HasComputedColumnSql("[Price]*[Kdv]");
+            //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).HasComputedColumnSql("[Price]*[Kdv]");
 
-            modelBuilder.Entity<Product>().Property(x=>x.PriceKdv).ValueGeneratedOnAdd(); // Identity
-            modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedOnAddOrUpdate(); // Computed
-            modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedNever(); // None
+            //modelBuilder.Entity<Product>().Property(x=>x.PriceKdv).ValueGeneratedOnAdd(); // Identity
+            //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedOnAddOrUpdate(); // Computed
+            //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedNever(); // None
+
             base.OnModelCreating(modelBuilder);
         }
 

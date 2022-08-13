@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZeroToHero.CodeFirst.DAL
@@ -18,20 +19,21 @@ namespace ZeroToHero.CodeFirst.DAL
         //[StringLength(100, MinimumLength = 100)] // Side to validation
         public string Name { get; set; }
         //[Column("price2", Order = 3, TypeName = "decimal(18,2)")]
+        [Precision(18,2)]
         public decimal Price { get; set; }
-        public int Kdv { get; set; }
+        //public int Kdv { get; set; }
 
         public int Stock { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public DateTime LastAccessDate { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        //public DateTime LastAccessDate { get; set; }
         public int Barcode { get; set; }
 
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public decimal PriceKdv { get; set; }
+        //public decimal PriceKdv { get; set; }
         //public int? Category_Id { get; set; }
 
         //[ForeignKey("Category_Id")] // attribute way
@@ -41,9 +43,9 @@ namespace ZeroToHero.CodeFirst.DAL
         //Shadow property
 
         //Another way
-        //public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
         // Domain Driven Design best practice
-        //public Category? Category { get; set; }
-        //public ProductFeature ProductFeature { get; set; }
+        public Category Category { get; set; }
+        public ProductFeature ProductFeature { get; set; }
     }
 }
