@@ -245,16 +245,35 @@ using (var _context = new AppDbContext())
     //await _context.SaveChangesAsync();
 
     // Eager Loading
-    var categoryWithProducts = _context.Categories.Include(x => x.Products).ThenInclude(x => x.ProductFeature).First();
+    //var categoryWithProducts = _context.Categories.Include(x => x.Products).ThenInclude(x => x.ProductFeature).First();
 
-    categoryWithProducts.Products.ForEach(product =>
+    //categoryWithProducts.Products.ForEach(product =>
+    //{
+    //    Console.WriteLine($"{categoryWithProducts.Name} {product.Name} {product.ProductFeature.Width}");
+    //});
+
+    //var productFeature = _context.ProductFeature.Include(x => x.Product).ThenInclude(x => x.Category).First();
+
+    //var product = _context.Products.Include(x => x.ProductFeature).Include(x => x.Category).First();
+
+    //Console.WriteLine("Proccess finished");
+
+    // Explicit Loading
+    var catagory = _context.Categories.First();
+    var product = _context.Products.First();
+    //
+    //
+    //
+    if (true)
     {
-        Console.WriteLine($"{categoryWithProducts.Name} {product.Name} {product.ProductFeature.Width}");
-    });
+        _context.Entry(catagory).Collection(x => x.Products).Load();
 
-    var productFeature = _context.ProductFeature.Include(x => x.Product).ThenInclude(x => x.Category).First();
+        _context.Entry(product).Reference(x => x.ProductFeature).Load();
 
-    var product = _context.Products.Include(x => x.ProductFeature).Include(x => x.Category).First();
-
-    Console.WriteLine("Proccess finished");
+        catagory.Products.ForEach(x =>
+        {
+            Console.WriteLine(x.Name);
+        });
+    }
+    ////
 }
