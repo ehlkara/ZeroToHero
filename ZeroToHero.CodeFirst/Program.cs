@@ -279,15 +279,47 @@ using (var _context = new AppDbContext())
     ///
 
     // Lazy Loading
-    var category = await _context.Categories.FirstAsync();
+    //var category = await _context.Categories.FirstAsync();
 
-    Console.WriteLine("Loaded category");
+    //Console.WriteLine("Loaded category");
 
-    var products = category.Products;
+    //var products = category.Products;
 
-    // (N+1 Problem)
-    products.ForEach(x =>
+    //// (N+1 Problem)
+    //products.ForEach(x =>
+    //{
+    //    var productFeature = x.ProductFeature;
+    //});
+
+    //--------------------------------------------------------
+    // Table Per Hierarchy
+
+    // Data Add
+    //_context.Persons.Add(new Manager() { FirstName = "m1", LastName = "m2", Age = 22, Grade = 1 });
+    //_context.Persons.Add(new Employee() { FirstName = "e1", LastName = "e2", Age = 22, Salary = 1000 });
+
+    //_context.SaveChanges();
+
+    // Get Data Queries
+    var managers = _context.Managers.ToList();
+
+    var employees = _context.Employees.ToList();
+
+    var persons = _context.Persons.ToList();
+
+    persons.ForEach(p =>
     {
-        var productFeature = x.ProductFeature;
+        switch (p)
+        {
+            case Manager manager:
+                Console.WriteLine($"Manager entity: {manager.Grade}");
+                break;
+            case Employee employee:
+                Console.WriteLine($"Employee entity: {employee.Salary}");
+                break;
+            default:
+                break;
+        }
     });
+
 }

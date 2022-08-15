@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZeroToHero.CodeFirst.DAL;
 
@@ -10,9 +11,10 @@ using ZeroToHero.CodeFirst.DAL;
 namespace ZeroToHero.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220815095143_tablePerHierarch")]
+    partial class tablePerHierarch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +23,7 @@ namespace ZeroToHero.CodeFirst.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.BasePerson", b =>
+            modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,10 +34,6 @@ namespace ZeroToHero.CodeFirst.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -44,32 +42,40 @@ namespace ZeroToHero.CodeFirst.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Persons");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BasePerson");
-                });
-
-            modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Employee", b =>
-                {
-                    b.HasBaseType("ZeroToHero.CodeFirst.DAL.BasePerson");
-
                     b.Property<decimal>("Salary")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasDiscriminator().HasValue("Employee");
+                    b.HasKey("Id");
+
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Manager", b =>
                 {
-                    b.HasBaseType("ZeroToHero.CodeFirst.DAL.BasePerson");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Manager");
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Managers");
                 });
 #pragma warning restore 612, 618
         }
