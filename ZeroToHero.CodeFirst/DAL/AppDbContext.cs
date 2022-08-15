@@ -78,6 +78,12 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedOnAddOrUpdate(); // Computed
             //modelBuilder.Entity<Product>().Property(x => x.PriceKdv).ValueGeneratedNever(); // None
 
+            // Table Per Type
+            modelBuilder.Entity<BasePerson>().ToTable("Persons");
+            modelBuilder.Entity<Employee>().ToTable("Employees");
+            modelBuilder.Entity<Manager>().ToTable("Managers");
+
+
             base.OnModelCreating(modelBuilder);
         }
 
