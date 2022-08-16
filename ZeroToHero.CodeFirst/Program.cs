@@ -332,24 +332,24 @@ using (var _context = new AppDbContext())
     //_context.SaveChanges();
 
     // Get Data Queries
-    var managers = _context.Managers.ToList();
+    //var managers = _context.Managers.ToList();
 
-    var employees = _context.Employees.ToList();
+    //var employees = _context.Employees.ToList();
 
-    var persons = _context.Persons.ToList();
+    //var persons = _context.Persons.ToList();
 
-    persons.ForEach(p =>
-    {
-        switch (p)
-        {
-            case Manager manager:
-                Console.WriteLine($"Manager entity: {manager.Grade}");
-                break;
-            case Employee employee:
-                Console.WriteLine($"Employee entity: {employee.Salary}");
-                break;
-            default:
-                break;
-        }
-    });
+    //persons.ForEach(p =>
+    //{
+    //    switch (p)
+    //    {
+    //        case Manager manager:
+    //            Console.WriteLine($"Manager entity: {manager.Grade}");
+    //            break;
+    //        case Employee employee:
+    //            Console.WriteLine($"Employee entity: {employee.Salary}");
+    //            break;
+    //        default:
+    //            break;
+    //    }
+    //});
 }

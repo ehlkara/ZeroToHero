@@ -1,8 +1,10 @@
-﻿namespace ZeroToHero.CodeFirst.DAL
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ZeroToHero.CodeFirst.DAL
 {
-    public class BasePerson
+    //[Owned]
+    public class Person
     {
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Age { get; set; }
