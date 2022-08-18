@@ -356,11 +356,11 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Keyless Entity Type
 
-    var productFulls = _context.ProductFulls.FromSqlRaw(@"Select p.Id 'Product_Id', c.Name 'CategoryName', p.Name, p.Price, pf.Height From Products p join ProductFeature pf on p.Id = pf.Id join Categories c on p.CategoryId=c.Id").ToList();
+    //var productFulls = _context.ProductFulls.FromSqlRaw(@"Select p.Id 'Product_Id', c.Name 'CategoryName', p.Name, p.Price, pf.Height From Products p join ProductFeature pf on p.Id = pf.Id join Categories c on p.CategoryId=c.Id").ToList();
 
-    Console.WriteLine("Proccess finished");
+    //Console.WriteLine("Proccess finished");
 
     // You cannot track proccesses.(Insert, delete, update)
-    _context.People.Add(new Person() { FirstName = "Ahmet", LastName = "Yılmaz", Age = 23 });
+    //_context.People.Add(new Person() { FirstName = "Ahmet", LastName = "Yılmaz", Age = 23 });
 
 }

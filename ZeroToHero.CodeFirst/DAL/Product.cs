@@ -11,12 +11,17 @@ namespace ZeroToHero.CodeFirst.DAL
         //[Key]
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+
+        //[Column(TypeName = "nvarchar(200)")]
+        public string Url { get; set; }
+
         //[Column("name2", Order =  2)]
         // if nullable is open, nullable:false
         //[Required] // side for validation is important
         //[MaxLength(100)] // character length
         // Fluent Validation
         //[StringLength(100, MinimumLength = 100)] // Side to validation
+        //[Unicode(false)] // varchar()
         public string Name { get; set; }
         //[Column("price2", Order = 3, TypeName = "decimal(18,2)")]
         [Precision(18,2)]
@@ -30,6 +35,7 @@ namespace ZeroToHero.CodeFirst.DAL
 
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         //public DateTime LastAccessDate { get; set; }
+        //[NotMapped] // Entiy Properties first option
         public int Barcode { get; set; }
 
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
