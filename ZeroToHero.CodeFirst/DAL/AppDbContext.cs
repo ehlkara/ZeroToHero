@@ -113,7 +113,7 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().HasIndex(x => x.Name);
             //modelBuilder.Entity<Product>().HasIndex(x => new { x.Name, x.Url });
             modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => new { x.Price, x.Stock, x.Barcode });
-
+            modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
 
             base.OnModelCreating(modelBuilder);
         }

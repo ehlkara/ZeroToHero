@@ -366,6 +366,9 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Indexes
 
-    _context.Products.Where(x => x.Name == "Pen 1").Select(x => new { name = x.Name, Price = x.Price, Stock = x.Stock, Barcode = x.Barcode });
+    //_context.Products.Where(x => x.Name == "Pen 1").Select(x => new { name = x.Name, Price = x.Price, Stock = x.Stock, Barcode = x.Barcode });
 
+    _context.Products.Add(new() { Name = "Pen 5", Price = 100, DiscountPrice = 120, Barcode = 123, Stock = 1, Url = "abc" });
+
+    _context.SaveChanges();
 }

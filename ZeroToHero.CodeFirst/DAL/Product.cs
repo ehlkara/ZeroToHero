@@ -29,6 +29,9 @@ namespace ZeroToHero.CodeFirst.DAL
         //[Column("price2", Order = 3, TypeName = "decimal(18,2)")]
         [Precision(18,2)]
         public decimal Price { get; set; }
+
+        [Precision(9,2)]
+        public decimal DiscountPrice { get; set; }
         //public int Kdv { get; set; }
 
         public int Stock { get; set; }
