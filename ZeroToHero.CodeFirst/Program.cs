@@ -360,4 +360,7 @@ using (var _context = new AppDbContext())
 
     Console.WriteLine("Proccess finished");
 
+    // You cannot track proccesses.(Insert, delete, update)
+    _context.People.Add(new Person() { FirstName = "Ahmet", LastName = "Yılmaz", Age = 23 });
+
 }

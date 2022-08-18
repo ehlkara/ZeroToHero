@@ -3,6 +3,7 @@
 namespace ZeroToHero.CodeFirst.DAL
 {
     //[Owned]
+    [Keyless]
     public class Person
     {
         public string FirstName { get; set; }

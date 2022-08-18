@@ -11,6 +11,8 @@ namespace ZeroToHero.CodeFirst.DAL
         //public DbSet<Manager> Managers { get; set; }
         //public DbSet<Employee> Employees { get; set; }
 
+        public DbSet<Person> People { get; set; }
+
         public DbSet<ProductFull> ProductFulls { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
