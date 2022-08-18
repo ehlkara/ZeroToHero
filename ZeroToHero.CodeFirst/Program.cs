@@ -363,4 +363,9 @@ using (var _context = new AppDbContext())
     // You cannot track proccesses.(Insert, delete, update)
     //_context.People.Add(new Person() { FirstName = "Ahmet", LastName = "Yılmaz", Age = 23 });
 
+    //--------------------------------------------------------
+    // Indexes
+
+    _context.Products.Where(x => x.Name == "Pen 1").Select(x => new { name = x.Name, Price = x.Price, Stock = x.Stock, Barcode = x.Barcode });
+
 }

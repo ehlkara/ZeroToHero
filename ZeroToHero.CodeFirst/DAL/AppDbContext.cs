@@ -103,11 +103,17 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<ProductFull>().HasNoKey();
 
             // Entity Properties; It is not creating barcode column on Product table.
-            modelBuilder.Entity<Product>().Ignore(x => x.Barcode);
+            //modelBuilder.Entity<Product>().Ignore(x => x.Barcode);
 
-            modelBuilder.Entity<Product>().Property(x => x.Name).IsUnicode(false).HasMaxLength(500); // varchar
+            //modelBuilder.Entity<Product>().Property(x => x.Name).IsUnicode(false).HasMaxLength(500); // varchar
 
-            modelBuilder.Entity<Product>().Property(x => x.Url).HasColumnType("varchar(500)").HasColumnName("ProductUrl");
+            //modelBuilder.Entity<Product>().Property(x => x.Url).HasColumnType("varchar(500)").HasColumnName("ProductUrl");
+
+            // Indexes
+            //modelBuilder.Entity<Product>().HasIndex(x => x.Name);
+            //modelBuilder.Entity<Product>().HasIndex(x => new { x.Name, x.Url });
+            modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => new { x.Price, x.Stock, x.Barcode });
+
 
             base.OnModelCreating(modelBuilder);
         }

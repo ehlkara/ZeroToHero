@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ZeroToHero.CodeFirst.DAL
 {
     //[Table("ProductTb", Schema = "products")]
+    [Index(nameof(Name), nameof(Url))]
+    [Index(nameof(Name))]
+    [Index(nameof(Url))]
     public class Product
     {
         //[Column(Order = 1)]
@@ -49,9 +52,9 @@ namespace ZeroToHero.CodeFirst.DAL
         //Shadow property
 
         //Another way
-        public int CategoryId { get; set; }
-        // Domain Driven Design best practice
-        public virtual Category Category { get; set; }
-        public virtual ProductFeature ProductFeature { get; set; }
+        //public int CategoryId { get; set; }
+        //// Domain Driven Design best practice
+        //public virtual Category Category { get; set; }
+        //public virtual ProductFeature ProductFeature { get; set; }
     }
 }
