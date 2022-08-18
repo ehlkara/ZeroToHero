@@ -8,12 +8,13 @@ namespace ZeroToHero.CodeFirst.DAL
     {
         //public DbSet<BasePerson> Persons { get; set; }
 
-        public DbSet<Manager> Managers { get; set; }
-        public DbSet<Employee> Employees { get; set; }
+        //public DbSet<Manager> Managers { get; set; }
+        //public DbSet<Employee> Employees { get; set; }
 
-        //public DbSet<Product> Products { get; set; }
-        //public DbSet<Category> Categories { get; set; }
-        //public DbSet<ProductFeature> ProductFeature { get; set; }
+        public DbSet<ProductFull> ProductFulls { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductFeature> ProductFeature { get; set; }
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
 
@@ -85,16 +86,19 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Manager>().ToTable("Managers");
 
             // Owned Entity Type
-            modelBuilder.Entity<Manager>().OwnsOne(x => x.Person,p => {
-                p.Property(x => x.FirstName).HasColumnName("FirstName");
-                p.Property(x => x.LastName).HasColumnName("LastName");
-                p.Property(x => x.Age).HasColumnName("Age");
-            });
-            modelBuilder.Entity<Employee>().OwnsOne(x => x.Person, p => {
-                p.Property(x => x.FirstName).HasColumnName("FirstName");
-                p.Property(x => x.LastName).HasColumnName("LastName");
-                p.Property(x => x.Age).HasColumnName("Age");
-            });
+            //modelBuilder.Entity<Manager>().OwnsOne(x => x.Person,p => {
+            //    p.Property(x => x.FirstName).HasColumnName("FirstName");
+            //    p.Property(x => x.LastName).HasColumnName("LastName");
+            //    p.Property(x => x.Age).HasColumnName("Age");
+            //});
+            //modelBuilder.Entity<Employee>().OwnsOne(x => x.Person, p => {
+            //    p.Property(x => x.FirstName).HasColumnName("FirstName");
+            //    p.Property(x => x.LastName).HasColumnName("LastName");
+            //    p.Property(x => x.Age).HasColumnName("Age");
+            //});
+
+            // Keyless Entity second option
+            modelBuilder.Entity<ProductFull>().HasNoKey();
 
             base.OnModelCreating(modelBuilder);
         }

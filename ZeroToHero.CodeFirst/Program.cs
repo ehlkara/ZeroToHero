@@ -352,4 +352,12 @@ using (var _context = new AppDbContext())
     //            break;
     //    }
     //});
+
+    //--------------------------------------------------------
+    // Keyless Entity Type
+
+    var productFulls = _context.ProductFulls.FromSqlRaw(@"Select p.Id 'Product_Id', c.Name 'CategoryName', p.Name, p.Price, pf.Height From Products p join ProductFeature pf on p.Id = pf.Id join Categories c on p.CategoryId=c.Id").ToList();
+
+    Console.WriteLine("Proccess finished");
+
 }
