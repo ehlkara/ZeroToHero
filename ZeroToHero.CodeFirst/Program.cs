@@ -509,32 +509,60 @@ using (var _context = new AppDbContext())
     // Left/Right Join
 
     // left Join
-    var leftResult = await (from p in _context.Products
-                  join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
-                  from pf in pfList.DefaultIfEmpty()
-                  select new { p,pf }).ToListAsync();
+    //var leftResult = await (from p in _context.Products
+    //              join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
+    //              from pf in pfList.DefaultIfEmpty()
+    //              select new { p,pf }).ToListAsync();
 
-    var leftResult2 = await (from p in _context.Products
-                        join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
-                        from pf in pfList.DefaultIfEmpty()
-                        select new 
-                        {
-                            ProductName = p.Name,
-                            PRoductColor = pf.Color,
-                            ProductWidth =(int?)pf.Width == null ? 5 : pf.Width
-                        }).ToListAsync();
+    //var leftResult2 = await (from p in _context.Products
+    //                    join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
+    //                    from pf in pfList.DefaultIfEmpty()
+    //                    select new 
+    //                    {
+    //                        ProductName = p.Name,
+    //                        PRoductColor = pf.Color,
+    //                        ProductWidth =(int?)pf.Width == null ? 5 : pf.Width
+    //                    }).ToListAsync();
 
     // Right Join
-    var rightResult2 = await (from pf in _context.ProductFeatures
-                             join p in _context.Products on pf.Id equals p.Id into pList
-                             from p in pList.DefaultIfEmpty()
-                             select new
-                             {
-                                 ProductName = p.Name,
-                                 ProductPrice = (decimal?)p.Price,
-                                 PRoductColor = pf.Color,
-                                 ProductWidth = pf.Width
-                             }).ToListAsync();
+    //var rightResult2 = await (from pf in _context.ProductFeatures
+    //                         join p in _context.Products on pf.Id equals p.Id into pList
+    //                         from p in pList.DefaultIfEmpty()
+    //                         select new
+    //                         {
+    //                             ProductName = p.Name,
+    //                             ProductPrice = (decimal?)p.Price,
+    //                             PRoductColor = pf.Color,
+    //                             ProductWidth = pf.Width
+    //                         }).ToListAsync();
+
+    //Console.WriteLine("Proccess Finished");
+
+    //--------------------------------------------------------
+    // FullOuter Join
+
+    //Query syntax
+    var left = await (from p in _context.Products
+                join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
+                from pf in pfList.DefaultIfEmpty()
+                select new
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Color = pf.Color
+                }).ToListAsync();
+
+    var right = await (from pf in _context.ProductFeatures
+                 join p in _context.Products on pf.Id equals p.Id into plist
+                 from p in plist.DefaultIfEmpty()
+                 select new
+                 {
+                     Id = p.Id,
+                     Name = p.Name,
+                     Color = pf.Color
+                 }).ToListAsync();
+
+    var outerJoin = left.Union(right);
 
     Console.WriteLine("Proccess Finished");
 }
