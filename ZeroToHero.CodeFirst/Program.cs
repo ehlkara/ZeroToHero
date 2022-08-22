@@ -480,28 +480,61 @@ using (var _context = new AppDbContext())
 
     // Third join
 
-    var result = _context.Categories.Join(_context.Products, c => c.Id, p => p.CategoryId, (c, p) => new { c, p })
-        .Join(_context.ProductFeatures, x => x.p.Id, y => y.Id, (c, pf) => new
-        {
-            CategoryName = c.c.Name,
-            ProductName = c.p.Name,
-            PRoductFeatureColor = pf.Color
-        }).ToList();
+    //var result = _context.Categories.Join(_context.Products, c => c.Id, p => p.CategoryId, (c, p) => new { c, p })
+    //    .Join(_context.ProductFeatures, x => x.p.Id, y => y.Id, (c, pf) => new
+    //    {
+    //        CategoryName = c.c.Name,
+    //        ProductName = c.p.Name,
+    //        PRoductFeatureColor = pf.Color
+    //    }).ToList();
 
-    var result2 = (from c in _context.Categories
-                   join p in _context.Products on c.Id equals p.CategoryId
-                   join pf in _context.ProductFeatures on p.Id equals pf.Id
-                   select new
-                   {
-                       CategoryName = c.Name,
-                       ProductName = p.Name,
-                       PRoductFeatureColor = pf.Color
-                   }).ToList();
+    //var result2 = (from c in _context.Categories
+    //               join p in _context.Products on c.Id equals p.CategoryId
+    //               join pf in _context.ProductFeatures on p.Id equals pf.Id
+    //               select new
+    //               {
+    //                   CategoryName = c.Name,
+    //                   ProductName = p.Name,
+    //                   PRoductFeatureColor = pf.Color
+    //               }).ToList();
 
-    var result3 = (from c in _context.Categories
-                   join p in _context.Products on c.Id equals p.CategoryId
-                   join pf in _context.ProductFeatures on p.Id equals pf.Id
-                   select new { c, p, pf }).ToList();
+    //var result3 = (from c in _context.Categories
+    //               join p in _context.Products on c.Id equals p.CategoryId
+    //               join pf in _context.ProductFeatures on p.Id equals pf.Id
+    //               select new { c, p, pf }).ToList();
+
+    //Console.WriteLine("Proccess Finished");
+
+    //--------------------------------------------------------
+    // Left/Right Join
+
+    // left Join
+    var leftResult = await (from p in _context.Products
+                  join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
+                  from pf in pfList.DefaultIfEmpty()
+                  select new { p,pf }).ToListAsync();
+
+    var leftResult2 = await (from p in _context.Products
+                        join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
+                        from pf in pfList.DefaultIfEmpty()
+                        select new 
+                        {
+                            ProductName = p.Name,
+                            PRoductColor = pf.Color,
+                            ProductWidth =(int?)pf.Width == null ? 5 : pf.Width
+                        }).ToListAsync();
+
+    // Right Join
+    var rightResult2 = await (from pf in _context.ProductFeatures
+                             join p in _context.Products on pf.Id equals p.Id into pList
+                             from p in pList.DefaultIfEmpty()
+                             select new
+                             {
+                                 ProductName = p.Name,
+                                 ProductPrice = (decimal?)p.Price,
+                                 PRoductColor = pf.Color,
+                                 ProductWidth = pf.Width
+                             }).ToListAsync();
 
     Console.WriteLine("Proccess Finished");
 }
