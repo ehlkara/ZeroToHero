@@ -368,7 +368,26 @@ using (var _context = new AppDbContext())
 
     //_context.Products.Where(x => x.Name == "Pen 1").Select(x => new { name = x.Name, Price = x.Price, Stock = x.Stock, Barcode = x.Barcode });
 
-    _context.Products.Add(new() { Name = "Pen 5", Price = 100, DiscountPrice = 120, Barcode = 123, Stock = 1, Url = "abc" });
+    //_context.Products.Add(new() { Name = "Pen 5", Price = 100, DiscountPrice = 120, Barcode = 123, Stock = 1, Url = "abc" });
 
-    _context.SaveChanges();
+    //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // Client vs Server Evaluation
+
+    //_context.People.Add(new Person() { FirstName = "Ahmet", LastName = "Aslan", Age = 23, Phone = "05554443322" });
+    //_context.People.Add(new Person() { FirstName = "Mehmet", LastName = "Aslan", Age = 24, Phone = "05554443322" });
+
+    //_context.SaveChanges();
+
+    string FormatPhone(string phone)
+    {
+        return phone.Substring(1, phone.Length - 1);
+    }
+
+    //var persons = _context.People.ToList().Where(x => FormatPhone( x.Phone) == "5554443322").ToList();
+
+    var person = _context.People.ToList().Select(x => new { PersonName = x.FirstName, PersonPhone = FormatPhone(x.Phone) }).ToList();
+
+    Console.WriteLine("Proccess Finished");
 }

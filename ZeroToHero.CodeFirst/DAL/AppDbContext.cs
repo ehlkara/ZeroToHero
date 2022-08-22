@@ -6,6 +6,8 @@ namespace ZeroToHero.CodeFirst.DAL
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<Person> People { get; set; }
+
         //public DbSet<BasePerson> Persons { get; set; }
 
         //public DbSet<Manager> Managers { get; set; }
@@ -14,7 +16,7 @@ namespace ZeroToHero.CodeFirst.DAL
         //public DbSet<Person> People { get; set; }
 
         //public DbSet<ProductFull> ProductFulls { get; set; }
-        public DbSet<Product> Products { get; set; }
+        //public DbSet<Product> Products { get; set; }
         //public DbSet<Category> Categories { get; set; }
         //public DbSet<ProductFeature> ProductFeature { get; set; }
         //public DbSet<Student> Students { get; set; }
@@ -112,8 +114,8 @@ namespace ZeroToHero.CodeFirst.DAL
             // Indexes
             //modelBuilder.Entity<Product>().HasIndex(x => x.Name);
             //modelBuilder.Entity<Product>().HasIndex(x => new { x.Name, x.Url });
-            modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => new { x.Price, x.Stock, x.Barcode });
-            modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
+            //modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => new { x.Price, x.Stock, x.Barcode });
+            //modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
 
             base.OnModelCreating(modelBuilder);
         }
