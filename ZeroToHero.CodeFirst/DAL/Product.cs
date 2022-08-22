@@ -5,9 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ZeroToHero.CodeFirst.DAL
 {
     //[Table("ProductTb", Schema = "products")]
-    [Index(nameof(Name), nameof(Url))]
-    [Index(nameof(Name))]
-    [Index(nameof(Url))]
+    //[Index(nameof(Name), nameof(Url))]
+    //[Index(nameof(Name))]
+    //[Index(nameof(Url))]
     public class Product
     {
         //[Column(Order = 1)]
@@ -16,7 +16,7 @@ namespace ZeroToHero.CodeFirst.DAL
         public int Id { get; set; }
 
         //[Column(TypeName = "nvarchar(200)")]
-        public string Url { get; set; }
+        //public string Url { get; set; }
 
         //[Column("name2", Order =  2)]
         // if nullable is open, nullable:false
@@ -55,9 +55,10 @@ namespace ZeroToHero.CodeFirst.DAL
         //Shadow property
 
         //Another way
-        //public int CategoryId { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
         //// Domain Driven Design best practice
         //public virtual Category Category { get; set; }
-        //public virtual ProductFeature ProductFeature { get; set; }
+        public virtual ProductFeature ProductFeature { get; set; }
     }
 }

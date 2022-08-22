@@ -380,14 +380,128 @@ using (var _context = new AppDbContext())
 
     //_context.SaveChanges();
 
-    string FormatPhone(string phone)
-    {
-        return phone.Substring(1, phone.Length - 1);
-    }
+    //string FormatPhone(string phone)
+    //{
+    //    return phone.Substring(1, phone.Length - 1);
+    //}
 
     //var persons = _context.People.ToList().Where(x => FormatPhone( x.Phone) == "5554443322").ToList();
 
-    var person = _context.People.ToList().Select(x => new { PersonName = x.FirstName, PersonPhone = FormatPhone(x.Phone) }).ToList();
+    //var person = _context.People.ToList().Select(x => new { PersonName = x.FirstName, PersonPhone = FormatPhone(x.Phone) }).ToList();
+
+    //Console.WriteLine("Proccess Finished");
+
+    //--------------------------------------------------------
+    // Data Added
+    //var category = new Category() { Name = "Pens" };
+
+    //category.Products.Add(new()
+    //{
+    //    Name = "Pen 1",
+    //    Price = 100,
+    //    Stock = 200,
+    //    Barcode = 123,
+    //    ProductFeature = new ProductFeature()
+    //    {
+    //        Color = "Red",
+    //        Height = 200,
+    //        Width = 100
+    //    }
+    //});
+    //category.Products.Add(new()
+    //{
+    //    Name = "Pen 2",
+    //    Price = 100,
+    //    Stock = 200,
+    //    Barcode = 123,
+    //    ProductFeature = new ProductFeature()
+    //    {
+    //        Color = "Red",
+    //        Height = 200,
+    //        Width = 100
+    //    }
+    //});
+    //category.Products.Add(new()
+    //{
+    //    Name = "Pen 3",
+    //    Price = 100,
+    //    Stock = 200,
+    //    Barcode = 123,
+    //    ProductFeature = new ProductFeature()
+    //    {
+    //        Color = "Red",
+    //        Height = 200,
+    //        Width = 100
+    //    }
+    //});
+    //category.Products.Add(new()
+    //{
+    //    Name = "Pen 4",
+    //    Price = 100,
+    //    Stock = 200,
+    //    Barcode = 123,
+    //    ProductFeature = new ProductFeature()
+    //    {
+    //        Color = "Red",
+    //        Height = 200,
+    //        Width = 100
+    //    }
+    //});
+
+    //_context.Categories.Add(category);
+    //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // Inner Join
+
+    // First Way(Two tables between join proccess)
+    //var result = _context.Categories.Join(_context.Products, x => x.Id, y => y.CategoryId, (c, p) => new
+    //{
+    //    CategoryName = c.Name,
+    //    ProductName = p.Name,
+    //    ProductPrice = p.Price
+    //}).ToList();
+
+    //var result = _context.Categories.Join(_context.Products, x => x.Id, y => y.CategoryId, (c, p) => p).ToList();
+
+    //Second Way
+    //var result2 = (from c in _context.Categories
+    //               join p in _context.Products on c.Id equals p.CategoryId
+    //               select p).ToList();
+
+    //var result3 = (from c in _context.Categories
+    //               join p in _context.Products on c.Id equals p.CategoryId
+    //               select new
+    //               {
+    //                   CategoryName = c.Name,
+    //                   ProductName = p.Name,
+    //                   ProductPrice = p.Price
+    //               }).ToList();
+
+    // Third join
+
+    var result = _context.Categories.Join(_context.Products, c => c.Id, p => p.CategoryId, (c, p) => new { c, p })
+        .Join(_context.ProductFeatures, x => x.p.Id, y => y.Id, (c, pf) => new
+        {
+            CategoryName = c.c.Name,
+            ProductName = c.p.Name,
+            PRoductFeatureColor = pf.Color
+        }).ToList();
+
+    var result2 = (from c in _context.Categories
+                   join p in _context.Products on c.Id equals p.CategoryId
+                   join pf in _context.ProductFeatures on p.Id equals pf.Id
+                   select new
+                   {
+                       CategoryName = c.Name,
+                       ProductName = p.Name,
+                       PRoductFeatureColor = pf.Color
+                   }).ToList();
+
+    var result3 = (from c in _context.Categories
+                   join p in _context.Products on c.Id equals p.CategoryId
+                   join pf in _context.ProductFeatures on p.Id equals pf.Id
+                   select new { c, p, pf }).ToList();
 
     Console.WriteLine("Proccess Finished");
 }

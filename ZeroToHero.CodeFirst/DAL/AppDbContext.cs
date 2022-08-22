@@ -6,7 +6,7 @@ namespace ZeroToHero.CodeFirst.DAL
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Person> People { get; set; }
+        //public DbSet<Person> People { get; set; }
 
         //public DbSet<BasePerson> Persons { get; set; }
 
@@ -16,9 +16,9 @@ namespace ZeroToHero.CodeFirst.DAL
         //public DbSet<Person> People { get; set; }
 
         //public DbSet<ProductFull> ProductFulls { get; set; }
-        //public DbSet<Product> Products { get; set; }
-        //public DbSet<Category> Categories { get; set; }
-        //public DbSet<ProductFeature> ProductFeature { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<ProductFeature> ProductFeatures { get; set; }
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
 

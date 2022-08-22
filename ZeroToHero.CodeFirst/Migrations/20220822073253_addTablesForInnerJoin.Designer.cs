@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZeroToHero.CodeFirst.DAL;
 
@@ -10,9 +11,10 @@ using ZeroToHero.CodeFirst.DAL;
 namespace ZeroToHero.CodeFirst.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220822073253_addTablesForInnerJoin")]
+    partial class addTablesForInnerJoin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,8 +110,8 @@ namespace ZeroToHero.CodeFirst.Migrations
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.ProductFeature", b =>
                 {
                     b.HasOne("ZeroToHero.CodeFirst.DAL.Product", "Product")
-                        .WithOne("ProductFeature")
-                        .HasForeignKey("ZeroToHero.CodeFirst.DAL.ProductFeature", "Id")
+                        .WithMany()
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -119,12 +121,6 @@ namespace ZeroToHero.CodeFirst.Migrations
             modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("ZeroToHero.CodeFirst.DAL.Product", b =>
-                {
-                    b.Navigation("ProductFeature")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
