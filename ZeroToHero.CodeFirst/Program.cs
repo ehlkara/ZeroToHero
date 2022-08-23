@@ -542,27 +542,27 @@ using (var _context = new AppDbContext())
     // FullOuter Join
 
     //Query syntax
-    var left = await (from p in _context.Products
-                join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
-                from pf in pfList.DefaultIfEmpty()
-                select new
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Color = pf.Color
-                }).ToListAsync();
+    //var left = await (from p in _context.Products
+    //            join pf in _context.ProductFeatures on p.Id equals pf.Id into pfList
+    //            from pf in pfList.DefaultIfEmpty()
+    //            select new
+    //            {
+    //                Id = p.Id,
+    //                Name = p.Name,
+    //                Color = pf.Color
+    //            }).ToListAsync();
 
-    var right = await (from pf in _context.ProductFeatures
-                 join p in _context.Products on pf.Id equals p.Id into plist
-                 from p in plist.DefaultIfEmpty()
-                 select new
-                 {
-                     Id = p.Id,
-                     Name = p.Name,
-                     Color = pf.Color
-                 }).ToListAsync();
+    //var right = await (from pf in _context.ProductFeatures
+    //             join p in _context.Products on pf.Id equals p.Id into plist
+    //             from p in plist.DefaultIfEmpty()
+    //             select new
+    //             {
+    //                 Id = p.Id,
+    //                 Name = p.Name,
+    //                 Color = pf.Color
+    //             }).ToListAsync();
 
-    var outerJoin = left.Union(right);
+    //var outerJoin = left.Union(right);
 
-    Console.WriteLine("Proccess Finished");
+    //Console.WriteLine("Proccess Finished");
 }
