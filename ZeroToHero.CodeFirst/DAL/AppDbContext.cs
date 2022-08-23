@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using ZeroToHero.CodeFirst.Models;
 
 namespace ZeroToHero.CodeFirst.DAL
 {
@@ -16,6 +17,8 @@ namespace ZeroToHero.CodeFirst.DAL
         //public DbSet<Person> People { get; set; }
 
         //public DbSet<ProductFull> ProductFulls { get; set; }
+        public DbSet<ProductEssential> ProductEssentials { get; set; }
+        public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductFeature> ProductFeatures { get; set; }
@@ -116,6 +119,9 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().HasIndex(x => new { x.Name, x.Url });
             //modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => new { x.Price, x.Stock, x.Barcode });
             //modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
+
+            modelBuilder.Entity<ProductEssential>().HasNoKey();
+            modelBuilder.Entity<ProductWithFeature>().HasNoKey();
 
             base.OnModelCreating(modelBuilder);
         }

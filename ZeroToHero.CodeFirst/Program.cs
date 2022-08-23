@@ -565,4 +565,31 @@ using (var _context = new AppDbContext())
     //var outerJoin = left.Union(right);
 
     //Console.WriteLine("Proccess Finished");
+
+    //--------------------------------------------------------
+    // Raw Sql Query
+
+    var id = 4;
+
+    decimal price = 100;
+
+    var products = await _context.Products.FromSqlRaw("Select * From products").ToListAsync();
+
+    // With Parameter
+    var product = await _context.Products.FromSqlRaw("Select * From products where id = {0}", id).FirstAsync();
+
+    var product2 = await _context.Products.FromSqlRaw("Select * From products where price > {0}", price).ToListAsync();
+
+    var product3 = await _context.Products.FromSqlInterpolated($"Select * From products where price > {price}").ToListAsync();
+
+    // Custome Query
+    //var product4 = await _context.ProductEssentials.FromSqlRaw("Select Id,Name,Price From products").ToListAsync();
+
+    var product5 = await _context.ProductEssentials.FromSqlRaw("Select Name,Price From products").ToListAsync();
+
+    var productwithFeature = await _context.ProductWithFeatures.FromSqlRaw("SELECT p.Id,p.Name,p.Price,pf.Color,pf.Height From Products p INNER JOIN ProductFeatures pf on p.Id = pf.Id").ToListAsync();
+
+
+
+    Console.WriteLine("Proccess Finished");
 }
