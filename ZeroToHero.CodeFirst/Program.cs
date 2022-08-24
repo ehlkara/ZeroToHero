@@ -592,7 +592,12 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // ToSql Query
 
-    var products = _context.ProductEssentials.Where(x=>x.Price > 200).ToList();
+    //var products = _context.ProductEssentials.Where(x=>x.Price > 200).ToList();
+
+    //--------------------------------------------------------
+    // ToView Query
+
+    var products = _context.ProductFulls.Where(x => x.Width > 100).ToList();
 
     Console.WriteLine("Proccess Finished");
 }

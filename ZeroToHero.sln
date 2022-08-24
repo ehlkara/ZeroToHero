@@ -7,11 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeroToHero.DatabaseFirst", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeroToHero.DatabaseFirstByScaffold", "ZeroToHero.DatabaseFirstByScaffold\ZeroToHero.DatabaseFirstByScaffold.csproj", "{E3215309-C093-4DC3-85D5-05BFB9305DD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroToHero.CodeFirst", "ZeroToHero.CodeFirst\ZeroToHero.CodeFirst.csproj", "{83C2479F-8D06-44BE-83F8-85E61210462B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeroToHero.CodeFirst", "ZeroToHero.CodeFirst\ZeroToHero.CodeFirst.csproj", "{83C2479F-8D06-44BE-83F8-85E61210462B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{C0A32029-1977-4BBA-93FD-4649AC9A7641}"
 	ProjectSection(SolutionItems) = preProject
 		Ef core scripts.txt = Ef core scripts.txt
+		View table sql script.txt = View table sql script.txt
 	EndProjectSection
 EndProject
 Global

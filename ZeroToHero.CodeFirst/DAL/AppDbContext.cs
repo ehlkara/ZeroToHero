@@ -16,8 +16,8 @@ namespace ZeroToHero.CodeFirst.DAL
 
         //public DbSet<Person> People { get; set; }
 
-        //public DbSet<ProductFull> ProductFulls { get; set; }
-        public DbSet<ProductEssential> ProductEssentials { get; set; }
+        public DbSet<ProductFull> ProductFulls { get; set; }
+        //public DbSet<ProductEssential> ProductEssentials { get; set; }
         //public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -123,8 +123,11 @@ namespace ZeroToHero.CodeFirst.DAL
             //--------------------------------------------------------
             // ToSql Query
 
-            modelBuilder.Entity<ProductEssential>().HasNoKey().ToSqlQuery("Select Name,Price From Products");
+            //modelBuilder.Entity<ProductEssential>().HasNoKey().ToSqlQuery("Select Name,Price From Products");
             //modelBuilder.Entity<ProductWithFeature>().HasNoKey();
+
+            // ToView
+            modelBuilder.Entity<ProductFull>().HasNoKey().ToView("productwithfeature");
 
             base.OnModelCreating(modelBuilder);
         }

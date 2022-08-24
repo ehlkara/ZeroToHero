@@ -1,0 +1,5 @@
+create view productwithfeature
+as
+select p.Id, p.Name,c.Name 'CategoryName',pf.Width,pf.Height from Products p
+join Categories c on p.CategoryId=c.Id
+join ProductFeatures pf on p.Id = pf.Id
