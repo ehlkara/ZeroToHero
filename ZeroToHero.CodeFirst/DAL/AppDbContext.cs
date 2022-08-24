@@ -18,7 +18,7 @@ namespace ZeroToHero.CodeFirst.DAL
 
         //public DbSet<ProductFull> ProductFulls { get; set; }
         public DbSet<ProductEssential> ProductEssentials { get; set; }
-        public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
+        //public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductFeature> ProductFeatures { get; set; }
@@ -120,8 +120,11 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().HasIndex(x => x.Name).IncludeProperties(x => new { x.Price, x.Stock, x.Barcode });
             //modelBuilder.Entity<Product>().HasCheckConstraint("PriceDiscountCheck", "[Price]>[DiscountPrice]");
 
-            modelBuilder.Entity<ProductEssential>().HasNoKey();
-            modelBuilder.Entity<ProductWithFeature>().HasNoKey();
+            //--------------------------------------------------------
+            // ToSql Query
+
+            modelBuilder.Entity<ProductEssential>().HasNoKey().ToSqlQuery("Select Name,Price From Products");
+            //modelBuilder.Entity<ProductWithFeature>().HasNoKey();
 
             base.OnModelCreating(modelBuilder);
         }
