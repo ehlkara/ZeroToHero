@@ -393,11 +393,11 @@ using (var _context = new AppDbContext())
 
     //--------------------------------------------------------
     // Data Added
-    //var category = new Category() { Name = "Pens" };
+    //var category = new Category() { Name = "NoteBooks" };
 
     //category.Products.Add(new()
     //{
-    //    Name = "Pen 1",
+    //    Name = "NoteBook 1",
     //    Price = 100,
     //    Stock = 200,
     //    Barcode = 123,
@@ -410,8 +410,8 @@ using (var _context = new AppDbContext())
     //});
     //category.Products.Add(new()
     //{
-    //    Name = "Pen 2",
-    //    Price = 100,
+    //    Name = "NoteBook 2",
+    //    Price = 200,
     //    Stock = 200,
     //    Barcode = 123,
     //    ProductFeature = new ProductFeature()
@@ -423,8 +423,8 @@ using (var _context = new AppDbContext())
     //});
     //category.Products.Add(new()
     //{
-    //    Name = "Pen 3",
-    //    Price = 100,
+    //    Name = "NoteBook 3",
+    //    Price = 300,
     //    Stock = 200,
     //    Barcode = 123,
     //    ProductFeature = new ProductFeature()
@@ -436,8 +436,8 @@ using (var _context = new AppDbContext())
     //});
     //category.Products.Add(new()
     //{
-    //    Name = "Pen 4",
-    //    Price = 100,
+    //    Name = "NoteBook 4",
+    //    Price = 400,
     //    Stock = 200,
     //    Barcode = 123,
     //    ProductFeature = new ProductFeature()
@@ -597,7 +597,31 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // ToView Query
 
-    var products = _context.ProductFulls.Where(x => x.Width > 100).ToList();
+    //var products = _context.ProductFulls.Where(x => x.Width > 100).ToList();
+
 
     Console.WriteLine("Proccess Finished");
 }
+
+//--------------------------------------------------------
+// Pagination
+
+//Take Linq method (10)
+//Skip Linq method (2)
+
+static List<Product> GetProducts(int page, int pageSize)
+{
+    using (var _context = new AppDbContext())
+    {
+        // page=1 pageSize=3 => First 3 data => skip :0 take:3 ((page-1)*pageSize) => (1-1)*3 : 0
+        // page=2 pageSize=3 => First 3 data => skip :3 take:3 ((page-1)*pageSize) => (2-1)*3 : 3
+        // page=3 pageSize=3 => First 3 data => skip :6 take:3 ((page-1)*pageSize) => (3-1)*3 : 6
+
+        return _context.Products.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+    }
+}
+
+GetProducts(2, 6).ForEach(x =>
+{
+    Console.WriteLine($"{x.Id} {x.Name}");
+});

@@ -16,7 +16,7 @@ namespace ZeroToHero.CodeFirst.DAL
 
         //public DbSet<Person> People { get; set; }
 
-        public DbSet<ProductFull> ProductFulls { get; set; }
+        //public DbSet<ProductFull> ProductFulls { get; set; }
         //public DbSet<ProductEssential> ProductEssentials { get; set; }
         //public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -32,7 +32,7 @@ namespace ZeroToHero.CodeFirst.DAL
             Initializer.Build();
             // Lazy Loading Proxies
             //optionsBuilder.LogTo(Console.WriteLine,LogLevel.Information).UseLazyLoadingProxies().UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
-            optionsBuilder.UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
+            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -127,7 +127,7 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<ProductWithFeature>().HasNoKey();
 
             // ToView
-            modelBuilder.Entity<ProductFull>().HasNoKey().ToView("productwithfeature");
+            //modelBuilder.Entity<ProductFull>().HasNoKey().ToView("productwithfeature");
 
             base.OnModelCreating(modelBuilder);
         }
