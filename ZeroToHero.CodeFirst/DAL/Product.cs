@@ -52,6 +52,8 @@ namespace ZeroToHero.CodeFirst.DAL
         // Navigation property
         //public Category Category { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         //Shadow property
 
         //Another way

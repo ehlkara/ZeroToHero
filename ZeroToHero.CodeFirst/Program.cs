@@ -599,6 +599,10 @@ using (var _context = new AppDbContext())
 
     //var products = _context.ProductFulls.Where(x => x.Width > 100).ToList();
 
+    //--------------------------------------------------------
+    // Global Query Filters (Soft Delete)
+
+    var products = _context.Products.IgnoreQueryFilters().ToList();
 
     Console.WriteLine("Proccess Finished");
 }
@@ -609,19 +613,19 @@ using (var _context = new AppDbContext())
 //Take Linq method (10)
 //Skip Linq method (2)
 
-static List<Product> GetProducts(int page, int pageSize)
-{
-    using (var _context = new AppDbContext())
-    {
-        // page=1 pageSize=3 => First 3 data => skip :0 take:3 ((page-1)*pageSize) => (1-1)*3 : 0
-        // page=2 pageSize=3 => First 3 data => skip :3 take:3 ((page-1)*pageSize) => (2-1)*3 : 3
-        // page=3 pageSize=3 => First 3 data => skip :6 take:3 ((page-1)*pageSize) => (3-1)*3 : 6
+//static List<Product> GetProducts(int page, int pageSize)
+//{
+//    using (var _context = new AppDbContext())
+//    {
+//        // page=1 pageSize=3 => First 3 data => skip :0 take:3 ((page-1)*pageSize) => (1-1)*3 : 0
+//        // page=2 pageSize=3 => First 3 data => skip :3 take:3 ((page-1)*pageSize) => (2-1)*3 : 3
+//        // page=3 pageSize=3 => First 3 data => skip :6 take:3 ((page-1)*pageSize) => (3-1)*3 : 6
 
-        return _context.Products.OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-    }
-}
+//        return _context.Products.Where(x=>x.Price > 100).OrderByDescending(x => x.Id).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+//    }
+//}
 
-GetProducts(2, 6).ForEach(x =>
-{
-    Console.WriteLine($"{x.Id} {x.Name}");
-});
+//GetProducts(1, 5).ForEach(x =>
+//{
+//    Console.WriteLine($"{x.Id} {x.Name} {x.Price}");
+//});

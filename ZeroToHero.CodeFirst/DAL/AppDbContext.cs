@@ -129,6 +129,10 @@ namespace ZeroToHero.CodeFirst.DAL
             // ToView
             //modelBuilder.Entity<ProductFull>().HasNoKey().ToView("productwithfeature");
 
+            modelBuilder.Entity<Product>().Property(x => x.IsDeleted).HasDefaultValue(false);
+
+            modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+
             base.OnModelCreating(modelBuilder);
         }
 
