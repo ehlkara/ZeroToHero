@@ -32,7 +32,8 @@ namespace ZeroToHero.CodeFirst.DAL
             Initializer.Build();
             // Lazy Loading Proxies
             //optionsBuilder.LogTo(Console.WriteLine,LogLevel.Information).UseLazyLoadingProxies().UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
-            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
+            // Global definition for Tracking
+            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

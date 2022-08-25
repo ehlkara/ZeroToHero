@@ -607,7 +607,18 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Query Tags
 
-    var productsWithFeatures = _context.Products.TagWith("This query is getting products and products relations to get properties").Include(x => x.ProductFeature).Where(x => x.Price > 100).ToList();
+    //var productsWithFeatures = _context.Products.TagWith("This query is getting products and products relations to get properties").Include(x => x.ProductFeature).Where(x => x.Price > 100).ToList();
+
+    //--------------------------------------------------------
+    // Tracking / No Tracking
+
+    var product = _context.Products.First(x => x.Id == 2);
+
+    product.Name = "Pen 22";
+
+    //_context.Update(product);
+
+    _context.SaveChanges();
 
     Console.WriteLine("Proccess Finished");
 }
