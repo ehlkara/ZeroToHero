@@ -616,7 +616,10 @@ using (var _context = new AppDbContext())
 
     product.Name = "Pen 22";
 
-    //_context.Update(product);
+    // if use AsNoTracking
+    _context.Entry(product).State = EntityState.Modified;
+    // or
+    _context.Update(product);
 
     _context.SaveChanges();
 
