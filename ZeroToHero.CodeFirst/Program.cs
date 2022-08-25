@@ -602,7 +602,12 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Global Query Filters (Soft Delete)
 
-    var products = _context.Products.IgnoreQueryFilters().ToList();
+    //var products = _context.Products.IgnoreQueryFilters().ToList();
+
+    //--------------------------------------------------------
+    // Query Tags
+
+    var productsWithFeatures = _context.Products.TagWith("This query is getting products and products relations to get properties").Include(x => x.ProductFeature).Where(x => x.Price > 100).ToList();
 
     Console.WriteLine("Proccess Finished");
 }
