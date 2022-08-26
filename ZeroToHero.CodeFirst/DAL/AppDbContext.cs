@@ -16,7 +16,7 @@ namespace ZeroToHero.CodeFirst.DAL
 
         //public DbSet<Person> People { get; set; }
 
-        //public DbSet<ProductFull> ProductFulls { get; set; }
+        public DbSet<ProductFull> ProductFulls { get; set; }
         //public DbSet<ProductEssential> ProductEssentials { get; set; }
         //public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -134,6 +134,8 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().Property(x => x.IsDeleted).HasDefaultValue(false);
 
             //modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<ProductFull>().HasNoKey();
 
             base.OnModelCreating(modelBuilder);
         }

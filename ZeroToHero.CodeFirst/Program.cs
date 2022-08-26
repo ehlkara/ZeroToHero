@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ZeroToHero.CodeFirst;
 using ZeroToHero.CodeFirst.DAL;
@@ -612,16 +613,48 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Tracking / No Tracking
 
-    var product = _context.Products.First(x => x.Id == 2);
+    //var product = _context.Products.First(x => x.Id == 2);
 
-    product.Name = "Pen 22";
+    //product.Name = "Pen 22";
 
-    // if use AsNoTracking
-    _context.Entry(product).State = EntityState.Modified;
-    // or
-    _context.Update(product);
+    //// if use AsNoTracking
+    //_context.Entry(product).State = EntityState.Modified;
+    //// or
+    //_context.Update(product);
 
-    _context.SaveChanges();
+    //_context.SaveChanges();
+
+    //--------------------------------------------------------
+    // Stored Procedure
+
+    var products = await _context.Products.FromSqlRaw("exec sp_get_products").ToListAsync();
+
+    var productFull = await _context.ProductFulls.FromSqlRaw("EXEC sp_get_product_full").ToListAsync();
+
+    var product2 = productFull.Where(x => x.Width > 100);
+
+    int categoryId = 1;
+    decimal price = 100;
+    var productWithParameter = await _context.ProductFulls.FromSqlInterpolated($"EXEC sp_get_product_full_parameters {categoryId},{price}").ToListAsync();
+
+    var product = new Product()
+    {
+        Name = "Pen 2000",
+        Price = 300,
+        Stock = 70,
+        Barcode = 123,
+        DiscountPrice = 50,
+        CategoryId = 1
+    };
+
+    //var newProductIdParameter = new SqlParameter("@newId", System.Data.SqlDbType.Int);
+    //newProductIdParameter.Direction = System.Data.ParameterDirection.Output;
+
+    //_context.Database.ExecuteSqlInterpolated($"EXEC sp_insert_product {product.Name},{product.Price},{product.DiscountPrice},{product.Stock}, {product.Barcode}, {product.CategoryId}, {newProductIdParameter} out");
+
+    //var newProductId = newProductIdParameter.Value;
+
+    var result = _context.Database.ExecuteSqlInterpolated($"EXEC sp_insert_product2 {product.Name},{product.Price},{product.DiscountPrice},{product.Stock}, {product.Barcode}, {product.CategoryId}");
 
     Console.WriteLine("Proccess Finished");
 }

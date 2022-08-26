@@ -1,0 +1,51 @@
+﻿
+-- create PROCEDURE sp_get_products
+-- as
+-- BEGIN
+-- select * from products
+-- END
+
+-- exec sp_get_products
+
+-- create PROCEDURE sp_get_product_full
+-- as
+-- BEGIN
+-- select p.Id,p.Name,p.Price,c.Name 'CategoryName', pf.Width,pf.Height from products p
+-- JOIN Categories c ON p.CategoryId = c.Id
+-- JOIN ProductFeatures pf ON p.Id = pf.Id
+-- END
+
+-- EXEC sp_get_product_full
+
+-- create PROCEDURE sp_get_product_full_parameters
+-- @categoryId INT,
+-- @price DECIMAL(18,2)
+-- as
+-- BEGIN
+-- select p.Id,p.Name,p.Price,c.Name 'CategoryName', pf.Width,pf.Height from products p
+-- JOIN Categories c ON p.CategoryId = c.Id
+-- JOIN ProductFeatures pf ON p.Id = pf.Id
+-- WHERE p.CategoryId = @categoryId AND p.Price > @price
+-- END
+
+-- EXEC sp_get_product_full_parameters 1,100
+
+
+create PROCEDURE sp_insert_product
+@name VARCHAR(max),
+@price DECIMAL(18,2),
+@discountPrice DECIMAL(9,2),
+@stock INT,
+@barcode INT,
+@categoryId INT,
+@newId INT OUTPUT
+as
+BEGIN
+INSERT into products(Name,Price,DiscountPrice,Stock,Barcode,CategoryId) VALUES(@name,@price,@discountPrice,@stock,@barcode,@categoryId)
+set @newId=SCOPE_IDENTITY();
+RETURN @newId;
+END
+
+DECLARE @newId INT;
+EXEC sp_insert_product 'Pen 500', 100,20,10,123,1,@newId output
+select @newId
