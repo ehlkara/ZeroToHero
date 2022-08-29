@@ -1,1 +1,20 @@
-﻿
+﻿create function fc_product_full()
+RETURNS TABLE
+as
+RETURN(
+select p.Id,p.Name,p.Price,c.Name 'CategoryName', pf.Width,pf.Height from products p
+JOIN Categories c ON p.CategoryId = c.Id
+JOIN ProductFeatures pf ON p.Id = pf.Id
+)
+
+-- With parameters
+create function fc_product_full_with_parameters(@categoryId int)
+RETURNS TABLE
+as
+RETURN(
+select p.Id,p.Name,pf.Width, pf.Height from Products p 
+Left JOIN ProductFeatures pf on p.Id=pf.Id
+WHERE p.CategoryId = @categoryId
+)
+
+SELECT * FROM fc_product_full_with_parameters(2)
