@@ -1,5 +1,4 @@
-﻿
--- create PROCEDURE sp_get_products
+﻿-- create PROCEDURE sp_get_products
 -- as
 -- BEGIN
 -- select * from products
@@ -49,3 +48,16 @@ END
 DECLARE @newId INT;
 EXEC sp_insert_product 'Pen 500', 100,20,10,123,1,@newId output
 select @newId
+
+create PROCEDURE sp_insert_product2
+@name VARCHAR(max),
+@price DECIMAL(18,2),
+@discountPrice DECIMAL(9,2),
+@stock INT,
+@barcode INT,
+@categoryId INT
+as
+BEGIN
+INSERT into products(Name,Price,DiscountPrice,Stock,Barcode,CategoryId) VALUES(@name,@price,@discountPrice,@stock,@barcode,@categoryId)
+END
+
