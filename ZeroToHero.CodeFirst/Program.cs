@@ -627,25 +627,25 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Stored Procedure
 
-    var products = await _context.Products.FromSqlRaw("exec sp_get_products").ToListAsync();
+    //var products = await _context.Products.FromSqlRaw("exec sp_get_products").ToListAsync();
 
-    var productFull = await _context.ProductFulls.FromSqlRaw("EXEC sp_get_product_full").ToListAsync();
+    //var productFull = await _context.ProductFulls.FromSqlRaw("EXEC sp_get_product_full").ToListAsync();
 
-    var product2 = productFull.Where(x => x.Width > 100);
+    //var product2 = productFull.Where(x => x.Width > 100);
 
-    int categoryId = 1;
-    decimal price = 100;
-    var productWithParameter = await _context.ProductFulls.FromSqlInterpolated($"EXEC sp_get_product_full_parameters {categoryId},{price}").ToListAsync();
+    //int categoryId = 1;
+    //decimal price = 100;
+    //var productWithParameter = await _context.ProductFulls.FromSqlInterpolated($"EXEC sp_get_product_full_parameters {categoryId},{price}").ToListAsync();
 
-    var product = new Product()
-    {
-        Name = "Pen 2000",
-        Price = 300,
-        Stock = 70,
-        Barcode = 123,
-        DiscountPrice = 50,
-        CategoryId = 1
-    };
+    //var product = new Product()
+    //{
+    //    Name = "Pen 2000",
+    //    Price = 300,
+    //    Stock = 70,
+    //    Barcode = 123,
+    //    DiscountPrice = 50,
+    //    CategoryId = 1
+    //};
 
     //var newProductIdParameter = new SqlParameter("@newId", System.Data.SqlDbType.Int);
     //newProductIdParameter.Direction = System.Data.ParameterDirection.Output;
@@ -654,7 +654,12 @@ using (var _context = new AppDbContext())
 
     //var newProductId = newProductIdParameter.Value;
 
-    var result = _context.Database.ExecuteSqlInterpolated($"EXEC sp_insert_product2 {product.Name},{product.Price},{product.DiscountPrice},{product.Stock}, {product.Barcode}, {product.CategoryId}");
+    //var result = _context.Database.ExecuteSqlInterpolated($"EXEC sp_insert_product2 {product.Name},{product.Price},{product.DiscountPrice},{product.Stock}, {product.Barcode}, {product.CategoryId}");
+
+    //--------------------------------------------------------
+    // Functions
+
+    var products = await _context.ProductFulls.ToListAsync();
 
     Console.WriteLine("Proccess Finished");
 }

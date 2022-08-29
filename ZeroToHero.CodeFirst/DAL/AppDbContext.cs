@@ -135,7 +135,7 @@ namespace ZeroToHero.CodeFirst.DAL
 
             //modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
 
-            modelBuilder.Entity<ProductFull>().HasNoKey();
+            modelBuilder.Entity<ProductFull>().ToFunction("fc_product_full");
 
             base.OnModelCreating(modelBuilder);
         }
