@@ -18,3 +18,15 @@ WHERE p.CategoryId = @categoryId
 )
 
 SELECT * FROM fc_product_full_with_parameters(2)
+
+--Scaler Function
+create function fc_get_product_count(@categoryId int)
+RETURNS int
+as
+BEGIN
+RETURN(
+    SELECT COUNT(*) FROM products WHERE CategoryId = @categoryId
+)
+END
+
+SELECT dbo.fc_get_product_count(1)

@@ -667,6 +667,14 @@ using (var _context = new AppDbContext())
 
     var product = _context.GetProductWithFeatures(1).Where(x => x.Width > 100).ToList();
 
+    //var count = _context.GetProductCount(1); // Cannot used
+
+    var categories = await _context.Categories.Select(x => new
+    {
+        CategoryName = x.Name,
+        ProductCount = _context.GetProductCount(x.Id)
+    }).Where(x => x.ProductCount > 10).ToListAsync();
+
     Console.WriteLine("Proccess Finished");
 }
 

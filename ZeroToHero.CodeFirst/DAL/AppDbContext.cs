@@ -26,7 +26,11 @@ namespace ZeroToHero.CodeFirst.DAL
         //public DbSet<Teacher> Teachers { get; set; }
 
         public IQueryable<ProductWithFeature> GetProductWithFeatures(int categoryId) => FromExpression(() => GetProductWithFeatures(categoryId));
-        
+
+        public int GetProductCount(int categoryId)
+        {
+            throw new NotSupportedException("This method is running side of ef core");
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -141,6 +145,8 @@ namespace ZeroToHero.CodeFirst.DAL
             modelBuilder.Entity<ProductFull>().ToFunction("fc_product_full");
 
             modelBuilder.HasDbFunction(typeof(AppDbContext).GetMethod(nameof(GetProductWithFeatures), new[] { typeof(int) })!).HasName("fc_product_full_with_parameters");
+
+            modelBuilder.HasDbFunction(typeof(AppDbContext).GetMethod(nameof(GetProductCount), new[] { typeof(int) })!).HasName("fc_get_product_count");
 
             base.OnModelCreating(modelBuilder);
         }
