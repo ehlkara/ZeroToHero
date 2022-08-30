@@ -675,6 +675,9 @@ using (var _context = new AppDbContext())
         ProductCount = _context.GetProductCount(x.Id)
     }).Where(x => x.ProductCount > 10).ToListAsync();
 
+    int categoryId = 1;
+    var productCount = _context.ProductCounts.FromSqlInterpolated($"SELECT dbo.fc_get_product_count({categoryId}) As COUNT").First().Count;
+
     Console.WriteLine("Proccess Finished");
 }
 

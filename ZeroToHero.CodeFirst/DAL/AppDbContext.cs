@@ -22,6 +22,7 @@ namespace ZeroToHero.CodeFirst.DAL
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductFeature> ProductFeatures { get; set; }
+        public DbSet<ProductCount> ProductCounts { get; set; }
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
 
@@ -147,6 +148,8 @@ namespace ZeroToHero.CodeFirst.DAL
             modelBuilder.HasDbFunction(typeof(AppDbContext).GetMethod(nameof(GetProductWithFeatures), new[] { typeof(int) })!).HasName("fc_product_full_with_parameters");
 
             modelBuilder.HasDbFunction(typeof(AppDbContext).GetMethod(nameof(GetProductCount), new[] { typeof(int) })!).HasName("fc_get_product_count");
+
+            modelBuilder.Entity<ProductCount>().HasNoKey();
 
             base.OnModelCreating(modelBuilder);
         }
