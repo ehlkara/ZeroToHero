@@ -661,9 +661,11 @@ using (var _context = new AppDbContext())
 
     var products = await _context.ProductFulls.ToListAsync();
 
-    int categoryId = 1;
+    //int categoryId = 1;
 
-    var productWithFeatures = await _context.ProductWithFeatures.FromSqlInterpolated($"SELECT * FROM fc_product_full_with_parameters({categoryId})").ToListAsync(); 
+    //var productWithFeatures = await _context.ProductWithFeatures.FromSqlInterpolated($"SELECT * FROM fc_product_full_with_parameters({categoryId})").ToListAsync();
+
+    var product = _context.GetProductWithFeatures(1).Where(x => x.Width > 100).ToList();
 
     Console.WriteLine("Proccess Finished");
 }

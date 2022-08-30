@@ -18,12 +18,15 @@ namespace ZeroToHero.CodeFirst.DAL
 
         public DbSet<ProductFull> ProductFulls { get; set; }
         //public DbSet<ProductEssential> ProductEssentials { get; set; }
-        public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
+        //public DbSet<ProductWithFeature> ProductWithFeatures { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductFeature> ProductFeatures { get; set; }
         //public DbSet<Student> Students { get; set; }
         //public DbSet<Teacher> Teachers { get; set; }
+
+        public IQueryable<ProductWithFeature> GetProductWithFeatures(int categoryId) => FromExpression(() => GetProductWithFeatures(categoryId));
+        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -136,6 +139,8 @@ namespace ZeroToHero.CodeFirst.DAL
             //modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
 
             modelBuilder.Entity<ProductFull>().ToFunction("fc_product_full");
+
+            modelBuilder.HasDbFunction(typeof(AppDbContext).GetMethod(nameof(GetProductWithFeatures), new[] { typeof(int) })!).HasName("fc_product_full_with_parameters");
 
             base.OnModelCreating(modelBuilder);
         }
