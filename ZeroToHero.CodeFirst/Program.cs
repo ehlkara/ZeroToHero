@@ -659,24 +659,24 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Functions
 
-    var products = await _context.ProductFulls.ToListAsync();
+    //var products = await _context.ProductFulls.ToListAsync();
 
     //int categoryId = 1;
 
     //var productWithFeatures = await _context.ProductWithFeatures.FromSqlInterpolated($"SELECT * FROM fc_product_full_with_parameters({categoryId})").ToListAsync();
 
-    var product = _context.GetProductWithFeatures(1).Where(x => x.Width > 100).ToList();
+    //var product = _context.GetProductWithFeatures(1).Where(x => x.Width > 100).ToList();
 
     //var count = _context.GetProductCount(1); // Cannot used
 
-    var categories = await _context.Categories.Select(x => new
-    {
-        CategoryName = x.Name,
-        ProductCount = _context.GetProductCount(x.Id)
-    }).Where(x => x.ProductCount > 10).ToListAsync();
+    //var categories = await _context.Categories.Select(x => new
+    //{
+    //    CategoryName = x.Name,
+    //    ProductCount = _context.GetProductCount(x.Id)
+    //}).Where(x => x.ProductCount > 10).ToListAsync();
 
-    int categoryId = 1;
-    var productCount = _context.ProductCounts.FromSqlInterpolated($"SELECT dbo.fc_get_product_count({categoryId}) As COUNT").First().Count;
+    //int categoryId = 1;
+    //var productCount = _context.ProductCounts.FromSqlInterpolated($"SELECT dbo.fc_get_product_count({categoryId}) As COUNT").First().Count;
 
     Console.WriteLine("Proccess Finished");
 }
