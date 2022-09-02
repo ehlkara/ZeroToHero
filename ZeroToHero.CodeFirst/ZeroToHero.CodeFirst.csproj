@@ -18,11 +18,14 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Models\" />
     <None Remove="DTOs\" />
+    <None Remove="AutoMapper" />
+    <None Remove="Mappers\" />
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
@@ -33,5 +36,6 @@
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="DTOs\" />
+    <Folder Include="Mappers\" />
   </ItemGroup>
 </Project>

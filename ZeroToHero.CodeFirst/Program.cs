@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ZeroToHero.CodeFirst;
 using ZeroToHero.CodeFirst.DAL;
 using ZeroToHero.CodeFirst.DTOs;
+using ZeroToHero.CodeFirst.Mappers;
 
 Initializer.Build();
 using (var _context = new AppDbContext())
@@ -715,6 +716,21 @@ using (var _context = new AppDbContext())
         TotalPrice = x.Products.Sum(x => x.Price),
         TotalWidth = (int?)x.Products.Select(x => x.ProductFeature.Width).Sum()
     }).Where(y => y.TotalPrice > 100).OrderBy(x => x.TotalPrice).ToListAsync();
+
+    // AutoMapper version
+
+    //var productsDto = _context.Products.Select(x => new ProductDTOs
+    //{
+    //    Id = x.Id,
+    //    Name = x.Name,
+    //    Price = x.Price,
+    //    DiscountPrice = x.DiscountPrice,
+    //    Stock = x.Stock
+    //}).ToList();
+
+    var product = _context.Products.ToList();
+
+    var productDto = ObjectMapper.Mapper.Map<List<ProductDTOs>>(product);
 
     Console.WriteLine("Proccess Finished");
 }
