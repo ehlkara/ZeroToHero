@@ -678,6 +678,24 @@ using (var _context = new AppDbContext())
     //int categoryId = 1;
     //var productCount = _context.ProductCounts.FromSqlInterpolated($"SELECT dbo.fc_get_product_count({categoryId}) As COUNT").First().Count;
 
+    //--------------------------------------------------------
+    // Projections
+
+    var products = await _context.Products.Include(x => x.Category).Include(x => x.ProductFeature).Select(x => new
+    {
+        CategoryName = x.Category.Name,
+        ProductName = x.Name,
+        ProductPrice = x.Price,
+        Width = (int?)x.ProductFeature.Width
+    }).Where(x => x.Width > 10 && x.ProductName.StartsWith("P")).ToListAsync();
+
+    var categories = await _context.Categories.Include(x => x.Products).ThenInclude(x => x.ProductFeature).Select(x => new
+    {
+        CategoryName = x.Name,
+        Products = String.Join(',', x.Products.Select(z => z.Name)), // Pen 1, Pen 2
+        TotalPrice = x.Products.Sum(x => x.Price)
+    }).Where(y => y.TotalPrice > 100).OrderBy(x => x.TotalPrice).ToListAsync();
+
     Console.WriteLine("Proccess Finished");
 }
 
