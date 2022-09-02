@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ZeroToHero.CodeFirst;
 using ZeroToHero.CodeFirst.DAL;
+using ZeroToHero.CodeFirst.DTOs;
 
 Initializer.Build();
 using (var _context = new AppDbContext())
@@ -681,7 +682,25 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Projections
 
-    var products = await _context.Products.Select(x => new
+    //var products = await _context.Products.Select(x => new
+    //{
+    //    CategoryName = x.Category.Name,
+    //    ProductName = x.Name,
+    //    ProductPrice = x.Price,
+    //    Width = (int?)x.ProductFeature.Width
+    //}).Where(x => x.Width > 10 && x.ProductName.StartsWith("P")).ToListAsync();
+
+    //var categories = await _context.Categories.Select(x => new
+    //{
+    //    CategoryName = x.Name,
+    //    Products = String.Join(',', x.Products.Select(z => z.Name)), // Pen 1, Pen 2
+    //    TotalPrice = x.Products.Sum(x => x.Price),
+    //    TotalWidth = (int?)x.Products.Select(x=>x.ProductFeature.Width).Sum()
+    //}).Where(y => y.TotalPrice > 100).OrderBy(x => x.TotalPrice).ToListAsync();
+
+    // DTO version
+
+    var products = await _context.Products.Select(x => new ProductDto
     {
         CategoryName = x.Category.Name,
         ProductName = x.Name,
@@ -689,12 +708,12 @@ using (var _context = new AppDbContext())
         Width = (int?)x.ProductFeature.Width
     }).Where(x => x.Width > 10 && x.ProductName.StartsWith("P")).ToListAsync();
 
-    var categories = await _context.Categories.Select(x => new
+    var categories = await _context.Categories.Select(x => new ProductDto2
     {
         CategoryName = x.Name,
-        Products = String.Join(',', x.Products.Select(z => z.Name)), // Pen 1, Pen 2
+        ProductNames = String.Join(',', x.Products.Select(z => z.Name)), // Pen 1, Pen 2
         TotalPrice = x.Products.Sum(x => x.Price),
-        TotalWidth = (int?)x.Products.Select(x=>x.ProductFeature.Width).Sum()
+        TotalWidth = (int?)x.Products.Select(x => x.ProductFeature.Width).Sum()
     }).Where(y => y.TotalPrice > 100).OrderBy(x => x.TotalPrice).ToListAsync();
 
     Console.WriteLine("Proccess Finished");
