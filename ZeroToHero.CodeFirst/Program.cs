@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using AutoMapper.QueryableExtensions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using ZeroToHero.CodeFirst;
@@ -728,9 +729,11 @@ using (var _context = new AppDbContext())
     //    Stock = x.Stock
     //}).ToList();
 
-    var product = _context.Products.ToList();
+    //var product = _context.Products.ToList();
 
-    var productDto = ObjectMapper.Mapper.Map<List<ProductDTOs>>(product);
+    //var productDto = ObjectMapper.Mapper.Map<List<ProductDTOs>>(product);
+
+    var productDto = _context.Products.ProjectTo<ProductDTOs>(ObjectMapper.Mapper.ConfigurationProvider).Where(x => x.Price > 10).ToList();
 
     Console.WriteLine("Proccess Finished");
 }
