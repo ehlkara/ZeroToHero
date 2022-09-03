@@ -702,21 +702,21 @@ using (var _context = new AppDbContext())
 
     // DTO version
 
-    var products = await _context.Products.Select(x => new ProductDto
-    {
-        CategoryName = x.Category.Name,
-        ProductName = x.Name,
-        ProductPrice = x.Price,
-        Width = (int?)x.ProductFeature.Width
-    }).Where(x => x.Width > 10 && x.ProductName.StartsWith("P")).ToListAsync();
+    //var products = await _context.Products.Select(x => new ProductDto
+    //{
+    //    CategoryName = x.Category.Name,
+    //    ProductName = x.Name,
+    //    ProductPrice = x.Price,
+    //    Width = (int?)x.ProductFeature.Width
+    //}).Where(x => x.Width > 10 && x.ProductName.StartsWith("P")).ToListAsync();
 
-    var categories = await _context.Categories.Select(x => new ProductDto2
-    {
-        CategoryName = x.Name,
-        ProductNames = String.Join(',', x.Products.Select(z => z.Name)), // Pen 1, Pen 2
-        TotalPrice = x.Products.Sum(x => x.Price),
-        TotalWidth = (int?)x.Products.Select(x => x.ProductFeature.Width).Sum()
-    }).Where(y => y.TotalPrice > 100).OrderBy(x => x.TotalPrice).ToListAsync();
+    //var categories = await _context.Categories.Select(x => new ProductDto2
+    //{
+    //    CategoryName = x.Name,
+    //    ProductNames = String.Join(',', x.Products.Select(z => z.Name)), // Pen 1, Pen 2
+    //    TotalPrice = x.Products.Sum(x => x.Price),
+    //    TotalWidth = (int?)x.Products.Select(x => x.ProductFeature.Width).Sum()
+    //}).Where(y => y.TotalPrice > 100).OrderBy(x => x.TotalPrice).ToListAsync();
 
     // AutoMapper version
 
@@ -733,7 +733,20 @@ using (var _context = new AppDbContext())
 
     //var productDto = ObjectMapper.Mapper.Map<List<ProductDTOs>>(product);
 
-    var productDto = _context.Products.ProjectTo<ProductDTOs>(ObjectMapper.Mapper.ConfigurationProvider).Where(x => x.Price > 10).ToList();
+    //var productDto = _context.Products.ProjectTo<ProductDTOs>(ObjectMapper.Mapper.ConfigurationProvider).Where(x => x.Price > 10).ToList();
+
+    //--------------------------------------------------------
+    // Transactions
+
+    var category = new Category() { Name = "Kılıflar" };
+
+    _context.Categories.Add(category);
+
+    var product = await _context.Products.FirstAsync();
+
+    product.Name = "Pen 123987";
+    product.CategoryId = 10;
+    _context.SaveChanges();
 
     Console.WriteLine("Proccess Finished");
 }
