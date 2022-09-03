@@ -1,15 +1,22 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using System.Data.Common;
 using AutoMapper.QueryableExtensions;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 using ZeroToHero.CodeFirst;
 using ZeroToHero.CodeFirst.DAL;
 using ZeroToHero.CodeFirst.DTOs;
 using ZeroToHero.CodeFirst.Mappers;
 
 Initializer.Build();
-using (var _context = new AppDbContext())
+
+var connection = new SqlConnection(Initializer.Configuration.GetConnectionString("SqlCon"));
+
+IDbContextTransaction transaction = null;
+using (var _context = new AppDbContext(connection))
 {
     //var products = await _context.Products.AsNoTracking().ToListAsync();
 
@@ -764,7 +771,7 @@ using (var _context = new AppDbContext())
     //_context.SaveChanges();
 
     //With transaction
-    using (var transaction = _context.Database.BeginTransaction())
+    using (transaction = _context.Database.BeginTransaction())
     {
 
         var category = new Category() { Name = "Kılıflar" };
@@ -775,7 +782,7 @@ using (var _context = new AppDbContext())
         Product product =
             new()
             {
-                Name = "Kılıf 1",
+                Name = "Kılıf 2",
                 Price = 100,
                 Stock = 200,
                 Barcode = 123,
@@ -786,11 +793,22 @@ using (var _context = new AppDbContext())
         _context.Products.Add(product);
         _context.SaveChanges();
 
+        using (var dbContext2 = new AppDbContext(connection))
+        {
+            dbContext2.Database.UseTransaction(transaction.GetDbTransaction());
+
+            var product3 = dbContext2.Products.First();
+            product3.Stock = 3000;
+            dbContext2.SaveChanges();
+        }
+
+
         transaction.Commit();
+        Console.WriteLine("Proccess Finished");
     }
 
-    Console.WriteLine("Proccess Finished");
 }
+
 
 //--------------------------------------------------------
 // Pagination

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Data.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using ZeroToHero.CodeFirst.Models;
@@ -7,6 +8,18 @@ namespace ZeroToHero.CodeFirst.DAL
 {
     public class AppDbContext : DbContext
     {
+        private DbConnection _connection;
+
+        public AppDbContext(DbConnection connection)
+        {
+            _connection = connection;
+        }
+
+        public AppDbContext()
+        {
+
+        }
+
         //public DbSet<Person> People { get; set; }
 
         //public DbSet<BasePerson> Persons { get; set; }
@@ -36,12 +49,21 @@ namespace ZeroToHero.CodeFirst.DAL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Trace, Debug, Information, Warning, Error, Critical
+            if(_connection == default(DbConnection))
+            {
+                Initializer.Build();
+                optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            }
+            else
+            {
+                optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(_connection).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
-            Initializer.Build();
+            }
+            //Initializer.Build();
             // Lazy Loading Proxies
             //optionsBuilder.LogTo(Console.WriteLine,LogLevel.Information).UseLazyLoadingProxies().UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));
             // Global definition for Tracking
-            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            //optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
