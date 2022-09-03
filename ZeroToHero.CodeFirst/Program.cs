@@ -738,15 +738,56 @@ using (var _context = new AppDbContext())
     //--------------------------------------------------------
     // Transactions
 
-    var category = new Category() { Name = "Kılıflar" };
+    // Wihout transaction
+    //var category = new Category() { Name = "Kılıflar" };
 
-    _context.Categories.Add(category);
+    //_context.Categories.Add(category);
 
-    var product = await _context.Products.FirstAsync();
 
-    product.Name = "Pen 123987";
-    product.CategoryId = 10;
-    _context.SaveChanges();
+    ////var product = await _context.Products.FirstAsync();
+
+    ////product.Name = "Pen 123987";
+    ////product.CategoryId = 10;
+
+    //Product product =
+    //    new()
+    //    {
+    //        Name = "Kılıf 1",
+    //        Price = 100,
+    //        Stock = 200,
+    //        Barcode = 123,
+    //        DiscountPrice = 100,
+    //        Category = category
+    //    };
+
+    //_context.Products.Add(product);
+    //_context.SaveChanges();
+
+    //With transaction
+    using (var transaction = _context.Database.BeginTransaction())
+    {
+
+        var category = new Category() { Name = "Kılıflar" };
+
+        _context.Categories.Add(category);
+        _context.SaveChanges();
+
+        Product product =
+            new()
+            {
+                Name = "Kılıf 1",
+                Price = 100,
+                Stock = 200,
+                Barcode = 123,
+                DiscountPrice = 100,
+                CategoryId = category.Id
+            };
+
+        _context.Products.Add(product);
+        _context.SaveChanges();
+
+        transaction.Commit();
+    }
 
     Console.WriteLine("Proccess Finished");
 }
