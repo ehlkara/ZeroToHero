@@ -868,7 +868,6 @@ using (var _context = new AppDbContext())
 
         var product2 = _context.Products.AsNoTracking().ToList();
 
-
         transaction.Commit();
     }
 }

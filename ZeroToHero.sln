@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{C0A3
 		transaction script.txt = transaction script.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concurrency.Web", "Concurrency.Web\Concurrency.Web.csproj", "{EE5B2E74-29EE-4EE0-B39A-50B5DAA47EFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{83C2479F-8D06-44BE-83F8-85E61210462B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83C2479F-8D06-44BE-83F8-85E61210462B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83C2479F-8D06-44BE-83F8-85E61210462B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE5B2E74-29EE-4EE0-B39A-50B5DAA47EFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5B2E74-29EE-4EE0-B39A-50B5DAA47EFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5B2E74-29EE-4EE0-B39A-50B5DAA47EFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5B2E74-29EE-4EE0-B39A-50B5DAA47EFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
