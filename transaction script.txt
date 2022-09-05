@@ -40,3 +40,9 @@ BEGIN CATCH
 ROLLBACK TRANSACTION MyTransaction
 PRINT 'Transaction Fail'
 END CATCH
+
+
+--------------------------------------------------
+
+
+alter database ZeroToHeroDb set ALLOW_SNAPSHOT_ISOLATION on

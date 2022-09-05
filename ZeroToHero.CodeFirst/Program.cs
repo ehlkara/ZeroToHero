@@ -851,9 +851,23 @@ using (var _context = new AppDbContext())
 
     //Serializable
 
-    using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable))
+    //using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable))
+    //{
+    //    var product = _context.Products.ToList();
+
+    //    transaction.Commit();
+    //}
+
+    //Snapshot
+
+    using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.Snapshot))
     {
-        var product = _context.Products.ToList();
+        var product = _context.Products.AsNoTracking().ToList();
+
+        // business code
+
+        var product2 = _context.Products.AsNoTracking().ToList();
+
 
         transaction.Commit();
     }
