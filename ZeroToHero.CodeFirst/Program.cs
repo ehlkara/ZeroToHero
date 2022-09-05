@@ -828,7 +828,7 @@ using (var _context = new AppDbContext())
     //trasanction.Commit();
     //}
 
-    //Read uncomitted
+    //Read comitted
 
     //using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
     //{
@@ -842,9 +842,18 @@ using (var _context = new AppDbContext())
 
     //Repeatable Read
 
-    using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.RepeatableRead))
+    //using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.RepeatableRead))
+    //{
+    //    var product = _context.Products.Take(2).ToList();
+
+    //    transaction.Commit();
+    //}
+
+    //Serializable
+
+    using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable))
     {
-        var product = _context.Products.Take(2).ToList();
+        var product = _context.Products.ToList();
 
         transaction.Commit();
     }
