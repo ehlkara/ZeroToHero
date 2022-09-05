@@ -8,17 +8,17 @@ namespace ZeroToHero.CodeFirst.DAL
 {
     public class AppDbContext : DbContext
     {
-        private DbConnection _connection;
+        //private DbConnection _connection;
 
-        public AppDbContext(DbConnection connection)
-        {
-            _connection = connection;
-        }
+        //public AppDbContext(DbConnection connection)
+        //{
+        //    _connection = connection;
+        //}
 
-        public AppDbContext()
-        {
+        //public AppDbContext()
+        //{
 
-        }
+        //}
 
         //public DbSet<Person> People { get; set; }
 
@@ -49,16 +49,16 @@ namespace ZeroToHero.CodeFirst.DAL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Trace, Debug, Information, Warning, Error, Critical
-            if(_connection == default(DbConnection))
-            {
+            //if(_connection == default(DbConnection))
+            //{
                 Initializer.Build();
                 optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            }
-            else
-            {
-                optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(_connection).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            //}
+            //else
+            //{
+            //    optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information).UseSqlServer(_connection).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
-            }
+            //}
             //Initializer.Build();
             // Lazy Loading Proxies
             //optionsBuilder.LogTo(Console.WriteLine,LogLevel.Information).UseLazyLoadingProxies().UseSqlServer(Initializer.Configuration.GetConnectionString("SqlCon"));

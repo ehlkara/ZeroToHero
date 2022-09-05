@@ -13,10 +13,10 @@ using ZeroToHero.CodeFirst.Mappers;
 
 Initializer.Build();
 
-var connection = new SqlConnection(Initializer.Configuration.GetConnectionString("SqlCon"));
+//var connection = new SqlConnection(Initializer.Configuration.GetConnectionString("SqlCon"));
 
-IDbContextTransaction transaction = null;
-using (var _context = new AppDbContext(connection))
+//IDbContextTransaction transaction = null;
+using (var _context = new AppDbContext())
 {
     //var products = await _context.Products.AsNoTracking().ToListAsync();
 
@@ -771,40 +771,61 @@ using (var _context = new AppDbContext(connection))
     //_context.SaveChanges();
 
     //With transaction
-    using (transaction = _context.Database.BeginTransaction())
+    //using (transaction = _context.Database.BeginTransaction())
+    //{
+
+    //    var category = new Category() { Name = "Kılıflar" };
+
+    //    _context.Categories.Add(category);
+    //    _context.SaveChanges();
+
+    //    Product product =
+    //        new()
+    //        {
+    //            Name = "Kılıf 2",
+    //            Price = 100,
+    //            Stock = 200,
+    //            Barcode = 123,
+    //            DiscountPrice = 100,
+    //            CategoryId = category.Id
+    //        };
+
+    //    _context.Products.Add(product);
+    //    _context.SaveChanges();
+
+    //    using (var dbContext2 = new AppDbContext(connection))
+    //    {
+    //        dbContext2.Database.UseTransaction(transaction.GetDbTransaction());
+
+    //        var product3 = dbContext2.Products.First();
+    //        product3.Stock = 3000;
+    //        dbContext2.SaveChanges();
+    //    }
+
+
+    //    transaction.Commit();
+    //    Console.WriteLine("Proccess Finished");
+    //}
+
+    //--------------------------------------------------------
+    // ISOLATION LEVEL
+
+    //Read uncomitted
+
+    using(var trasanction = _context.Database.BeginTransaction(System.Data.IsolationLevel.ReadUncommitted))
     {
 
-        var category = new Category() { Name = "Kılıflar" };
+        var products = _context.Products.ToList();
 
-        _context.Categories.Add(category);
-        _context.SaveChanges();
+        //var categories = _context.Categories.ToList();
+        //var product = _context.Products.First();
+        //product.Price = 500;
 
-        Product product =
-            new()
-            {
-                Name = "Kılıf 2",
-                Price = 100,
-                Stock = 200,
-                Barcode = 123,
-                DiscountPrice = 100,
-                CategoryId = category.Id
-            };
+        //_context.Products.Add(new Product() { Name = "a", Price = 1, Stock = 1, Barcode = 1, CategoryId = 1, DiscountPrice = 1 });
 
-        _context.Products.Add(product);
-        _context.SaveChanges();
+        //_context.SaveChanges();
 
-        using (var dbContext2 = new AppDbContext(connection))
-        {
-            dbContext2.Database.UseTransaction(transaction.GetDbTransaction());
-
-            var product3 = dbContext2.Products.First();
-            product3.Stock = 3000;
-            dbContext2.SaveChanges();
-        }
-
-
-        transaction.Commit();
-        Console.WriteLine("Proccess Finished");
+        trasanction.Commit();
     }
 
 }
