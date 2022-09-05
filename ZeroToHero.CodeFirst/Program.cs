@@ -817,25 +817,34 @@ using (var _context = new AppDbContext())
 
     //    var products = _context.Products.ToList();
 
-        //var categories = _context.Categories.ToList();
-        //var product = _context.Products.First();
-        //product.Price = 500;
+    //var categories = _context.Categories.ToList();
+    //var product = _context.Products.First();
+    //product.Price = 500;
 
-        //_context.Products.Add(new Product() { Name = "a", Price = 1, Stock = 1, Barcode = 1, CategoryId = 1, DiscountPrice = 1 });
+    //_context.Products.Add(new Product() { Name = "a", Price = 1, Stock = 1, Barcode = 1, CategoryId = 1, DiscountPrice = 1 });
 
-        //_context.SaveChanges();
+    //_context.SaveChanges();
 
-        //trasanction.Commit();
+    //trasanction.Commit();
     //}
 
     //Read uncomitted
 
-    using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
-    {
-        var product = _context.Products.First();
-        product.Price = 1;
+    //using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.ReadCommitted))
+    //{
+    //    var product = _context.Products.First();
+    //    product.Price = 1;
 
-        _context.SaveChanges();
+    //    _context.SaveChanges();
+
+    //    transaction.Commit();
+    //}
+
+    //Repeatable Read
+
+    using (var transaction = _context.Database.BeginTransaction(System.Data.IsolationLevel.RepeatableRead))
+    {
+        var product = _context.Products.Take(2).ToList();
 
         transaction.Commit();
     }

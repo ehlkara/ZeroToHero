@@ -10,3 +10,33 @@ BEGIN CATCH
 ROLLBACK TRANSACTION MyTransaction
 PRINT 'Transaction Fail'
 END CATCH
+
+--------------------------------------------------
+
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED
+BEGIN TRANSACTION MyTransaction
+BEGIN TRY
+SELECT * FROM Products
+COMMIT TRANSACTION MyTransaction
+PRINT 'Transaction success'
+END TRY
+BEGIN CATCH
+ROLLBACK TRANSACTION MyTransaction
+PRINT 'Transaction Fail'
+END CATCH
+
+
+--------------------------------------------------
+
+
+SET TRANSACTION ISOLATION LEVEL REPEATABLE READ
+BEGIN TRANSACTION MyTransaction
+BEGIN TRY
+SELECT * FROM Products
+COMMIT TRANSACTION MyTransaction
+PRINT 'Transaction success'
+END TRY
+BEGIN CATCH
+ROLLBACK TRANSACTION MyTransaction
+PRINT 'Transaction Fail'
+END CATCH
