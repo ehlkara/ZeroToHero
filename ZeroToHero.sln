@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{C0A3
 		View table sql script.txt = View table sql script.txt
 		store procedure scripts.txt = store procedure scripts.txt
 		function scripts.txt = function scripts.txt
+		transaction script.txt = transaction script.txt
 	EndProjectSection
 EndProject
 Global
